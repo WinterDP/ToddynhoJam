@@ -1,10 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
+
+    #region Variáveis: Componentes do game Object
+
+    private Rigidbody2D _rigidbody2D;
+    private PlayerInput _playerInput;
+
+    private Camera _mainCamera;
+
+    #endregion
+
+
+    #region Variáveis: Direção do input para movimento
+
+    private Vector2 _inputMovementDirection;
+    private Vector2 _inputMousePos;
+
+    #endregion
+
+    #region Variáveis: métodos Smooth Vector 2
+
+    // Cuida da velocidade da mudança
+    private Vector2 _smoothedMovementInput;
+    private Vector2 _movementInputSmoothVelocity;
+    [Header("Atributos de suavização da movimentação")]
+    [SerializeField]
+    private float _smoothTime;
+
+    #endregion
+
+    #region Variáveis: Atributos de movimentação
+
+    [Header("Atributos de movimentação")]
+    [SerializeField]
+    private float _playerSpeed;
+
+    #endregion
+
+    private void Awake()
+    {
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _playerInput = new PlayerInput();
+        _mainCamera = Camera.main;
+    }
+
+    private void FixedUpdate()
+    {
+        HandleMovement();
+        HandleRotation();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,5 +66,54 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void HandleMovement()
+    {
+        // Faz uma transição suave em um dado tempo para a variação do valor do input
+        _smoothedMovementInput = Vector2.SmoothDamp(
+            _smoothedMovementInput,
+            _inputMovementDirection,
+            ref _movementInputSmoothVelocity,
+            _smoothTime
+            );
+        // Adiciona velocidade para o corpo, de acordo com a direção passada pelo input
+        _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed;
+    }
+
+    private void HandleRotation()
+    {
+        // Calcula a direção que o player deve olhar
+        Vector2 facingDirection = _mainCamera.ScreenToWorldPoint(_inputMousePos) - transform.position;
+        float facingAngle = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
+        _rigidbody2D.MoveRotation(facingAngle);
+
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+
+        _playerInput.Player.Move.performed += OnMove;
+        _playerInput.Player.Move.canceled += OnMove;
+
+        _playerInput.Player.Look.performed += OnLook;
+    }
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+    }
+
+    private void OnMove(InputAction.CallbackContext inputValue)
+    {
+        // Recebe o input do jogador, tranformando em um vetor para movimentação
+        _inputMovementDirection = inputValue.ReadValue<Vector2>().normalized;
+    }
+
+    private void OnLook(InputAction.CallbackContext inputValue)
+    {
+        // Pega a posição do mouse como input para a rotação do player
+        _inputMousePos = inputValue.ReadValue<Vector2>();
     }
 }
