@@ -13,14 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput _playerInput;
 
     private Camera _mainCamera;
+    public Camera MainCamera => _mainCamera;
 
     #endregion
-
 
     #region Variáveis: Direção do input para movimento
 
     private Vector2 _inputMovementDirection;
     private Vector2 _inputMousePos;
+    public Vector2 InputMousePos => _inputMousePos;
 
     #endregion
 
