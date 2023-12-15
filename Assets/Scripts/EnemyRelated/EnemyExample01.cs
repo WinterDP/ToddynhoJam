@@ -16,7 +16,10 @@ public class EnemyExample01 : BaseEnemy
 
         };
 
-        SetTarget(GameObject.FindGameObjectWithTag("Player").transform);
+        Agent.updateRotation = false;
+        Agent.updateUpAxis = false;
+
+        SetTarget(GameManager.Instance.GetPlayerReference());
         InitializeStateMachine(states);
     }
 }
