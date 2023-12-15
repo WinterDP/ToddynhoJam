@@ -1,3 +1,4 @@
+using NavMeshPlus.Extensions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,10 @@ public class ChaseState : BaseState
         float distance = CalculateDistanceFromTarget();
 
         if (distance > baseEnemy.DetectionRadius)
+        {
+            baseEnemy.Agent.SetDestination(transform.position);
             return typeof(IdleState);
+        }
         else
             return typeof(ChaseState);
 
@@ -23,7 +27,7 @@ public class ChaseState : BaseState
 
     private void TickChase()
     {
-    
+        baseEnemy.Agent.SetDestination(baseEnemy.Target.position);
     }
 
     private float CalculateDistanceFromTarget()

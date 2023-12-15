@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.AI;
 
 public abstract class BaseEnemy : MonoBehaviour
 {
     public Transform Target { get; private set; }
     public StateMachine StateMachine => GetComponent<StateMachine>();
+    [HideInInspector] public NavMeshAgent Agent => GetComponent<NavMeshAgent>();
 
 
     [Header("Masks")]
