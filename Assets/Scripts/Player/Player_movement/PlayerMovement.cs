@@ -13,14 +13,15 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput _playerInput;
 
     private Camera _mainCamera;
+    public Camera MainCamera => _mainCamera;
 
     #endregion
-
 
     #region Variáveis: Direção do input para movimento
 
     private Vector2 _inputMovementDirection;
     private Vector2 _inputMousePos;
+    public Vector2 InputMousePos => _inputMousePos;
 
     #endregion
 
@@ -40,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Atributos de movimentação")]
     [SerializeField]
     private float _playerSpeed;
+    [SerializeField]
+    [Range(0, 1)]
+    private float _playerSpeedBackwardsModifier;
+    [SerializeField]
+    private float _playerAngleFowardMovimentation;
 
     #endregion
 
@@ -77,8 +83,20 @@ public class PlayerMovement : MonoBehaviour
             ref _movementInputSmoothVelocity,
             _smoothTime
             );
-        // Adiciona velocidade para o corpo, de acordo com a direção passada pelo input
-        _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed;
+
+        if (Vector2.Angle(_mainCamera.ScreenToWorldPoint(_inputMousePos) - transform.position, _inputMovementDirection) < _playerAngleFowardMovimentation)
+        {
+            // Está se movendo para frente
+            // Adiciona velocidade para o corpo, de acordo com a direção passada pelo input
+            _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed;
+        }
+        else
+        {
+            // Está se movendo para trás
+            // Adiciona velocidade para o corpo, reduzida por se mover para trás, de acordo com a direção passada pelo input
+            _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed * _playerSpeedBackwardsModifier;
+        }
+        
     }
 
     private void HandleRotation()
