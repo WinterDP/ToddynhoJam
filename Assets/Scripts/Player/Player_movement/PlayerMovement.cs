@@ -42,11 +42,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _playerSpeed;
     [SerializeField]
+    [Range(1, 2)]
+    private float _playerSpeedRunningModifier;
+    [SerializeField]
+    [Range(0, 1)]
+    private float _playerSpeedCrouchingModifier;
+    [SerializeField]
     [Range(0, 1)]
     private float _playerSpeedBackwardsModifier;
     [SerializeField]
     private float _playerAngleFowardMovimentation;
 
+    private float _currentSpeedCrouchModifier;
+    private float _currentSpeedRunModifier;
     #endregion
 
     private void Awake()
@@ -54,6 +62,9 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
         _playerInput = new PlayerInput();
         _mainCamera = Camera.main;
+
+        _currentSpeedCrouchModifier = 1;
+        _currentSpeedRunModifier = 1;
     }
 
     private void FixedUpdate()
@@ -76,6 +87,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        float _playerCurrentSpeed = _playerSpeed * _currentSpeedCrouchModifier * _currentSpeedRunModifier;
+
         // Faz uma transição suave em um dado tempo para a variação do valor do input
         _smoothedMovementInput = Vector2.SmoothDamp(
             _smoothedMovementInput,
@@ -88,13 +101,13 @@ public class PlayerMovement : MonoBehaviour
         {
             // Está se movendo para frente
             // Adiciona velocidade para o corpo, de acordo com a direção passada pelo input
-            _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed;
+            _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed;
         }
         else
         {
             // Está se movendo para trás
             // Adiciona velocidade para o corpo, reduzida por se mover para trás, de acordo com a direção passada pelo input
-            _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed * _playerSpeedBackwardsModifier;
+            _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed * _playerSpeedBackwardsModifier;
         }
         
     }
@@ -112,9 +125,20 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerInput.Enable();
 
+        // Movimentação
         _playerInput.Player.Move.performed += OnMove;
         _playerInput.Player.Move.canceled += OnMove;
 
+        // Corrida
+        _playerInput.Player.Run.performed += OnRun;
+        _playerInput.Player.Run.canceled += OnRun;
+
+        // Agachar 
+        _playerInput.Player.Crouch.performed += OnCrouch;
+        _playerInput.Player.Crouch.canceled += OnCrouch;
+
+
+        // Observar
         _playerInput.Player.Look.performed += OnLook;
     }
 
@@ -127,6 +151,30 @@ public class PlayerMovement : MonoBehaviour
     {
         // Recebe o input do jogador, tranformando em um vetor para movimentação
         _inputMovementDirection = inputValue.ReadValue<Vector2>().normalized;
+    }
+
+    private void OnRun(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed() && _currentSpeedCrouchModifier == 1)
+        {
+            _currentSpeedRunModifier = _playerSpeedRunningModifier;
+        }
+        else
+        {
+            _currentSpeedRunModifier = 1f;
+        }
+    }
+
+    private void OnCrouch(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed() && _currentSpeedRunModifier == 1)
+        {
+            _currentSpeedCrouchModifier = _playerSpeedCrouchingModifier;
+        }
+        else
+        {
+            _currentSpeedCrouchModifier = 1;
+        }
     }
 
     private void OnLook(InputAction.CallbackContext inputValue)
