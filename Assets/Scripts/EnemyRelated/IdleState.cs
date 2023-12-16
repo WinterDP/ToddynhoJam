@@ -10,6 +10,12 @@ public class IdleState : BaseState
     {
         this.baseEnemy = baseEnemy;
     }
+
+    public override void EnterState()
+    {
+        
+    }
+
     public override Type Tick()
     {
         float distance = CalculateDistanceFromTarget();

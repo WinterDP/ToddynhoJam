@@ -62,4 +62,9 @@ public class PatrolState : BaseState
     {
         return Vector3.Distance(transform.position, GameManager.Instance.GetPlayerReference().position);
     }
+
+    public override void EnterState()
+    {
+    
+    }
 }

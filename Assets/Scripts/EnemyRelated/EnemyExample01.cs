@@ -14,6 +14,7 @@ public class EnemyExample01 : BaseEnemy
             //Behaviuor/States here
             { typeof(PatrolState), new PatrolState(this) },
             { typeof(IdleState), new IdleState(this) },
+            { typeof(AttackState), new AttackState(this) },
             { typeof(ChaseState), new ChaseState(this) }
 
         };

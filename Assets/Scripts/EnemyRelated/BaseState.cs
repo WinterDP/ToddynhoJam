@@ -14,4 +14,5 @@ public abstract class BaseState
     }
 
     public abstract Type Tick();
+    public abstract void EnterState();
 }

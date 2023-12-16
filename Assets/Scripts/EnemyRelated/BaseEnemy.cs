@@ -13,6 +13,7 @@ public abstract class BaseEnemy : MonoBehaviour
     public LayerMask targetMask;
 
     [Header("Chase Specifics")]
+    public float AttackRadius = 2f;
     public float DetectionRadius = 7f;
     public float StartAggroRadius = 5f;
     public float LoseAgroRadius = 10f;
@@ -38,6 +39,8 @@ public abstract class BaseEnemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, AttackRadius);
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, DetectionRadius);
         Gizmos.color = Color.red;
