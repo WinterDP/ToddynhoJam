@@ -334,6 +334,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _smoothTime: 0.1
   _playerSpeed: 5
+  _playerSpeedBackwardsModifier: 0.5
+  _playerAngleFowardMovimentation: 110
 --- !u!114 &794944778566362562
 MonoBehaviour:
   m_ObjectHideFlags: 0
