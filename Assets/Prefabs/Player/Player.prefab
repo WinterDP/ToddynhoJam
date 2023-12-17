@@ -459,8 +459,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _batteryMaxCharge: 100
-  _batteryDecay: 10
+  _batteryDecay: 1
   _lanternMaxRange: 8
+  _lowBatteryWarningPoints:
+  - 50
+  - 20
+  - 0
 --- !u!1 &8414727857582491544
 GameObject:
   m_ObjectHideFlags: 0
