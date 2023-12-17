@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 8090363255842546531}
   - component: {fileID: 5523750146939951620}
   - component: {fileID: 1697031883061535294}
+  - component: {fileID: 2962878982747602664}
   - component: {fileID: 249122026213889022}
   - component: {fileID: 7972347081028422961}
   m_Layer: 7
@@ -320,6 +321,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 0.8828125}
   m_Direction: 0
+--- !u!114 &2962878982747602664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899583523231501252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f74a02235e4e88a4bad45bd7a0e321e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &249122026213889022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,6 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1641337622203239956}
   - component: {fileID: 8897064747015495563}
+  - component: {fileID: 6723749574918173963}
   m_Layer: 7
   m_Name: Lantern
   m_TagString: Untagged
@@ -432,6 +446,21 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &6723749574918173963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6445973839242605854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cede106fcbce1904ca99ccf224934b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _batteryMaxCharge: 100
+  _batteryDecay: 10
+  _lanternMaxRange: 8
 --- !u!1 &8414727857582491544
 GameObject:
   m_ObjectHideFlags: 0

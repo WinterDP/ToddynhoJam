@@ -75,7 +75,7 @@ public class PlayerFOV : MonoBehaviour
     public void EntitySpotted(RaycastHit2D ray)
     {
         // Verifica se a entidade avistada está no alcance da lanterna
-        if (Vector2.Distance(ray.collider.gameObject.transform.position, transform.position) < _viewDistanceLantern)
+        if (Vector2.Distance(ray.collider.gameObject.transform.position, transform.position) < _viewDistanceLantern || (Vector2.Distance(ray.collider.gameObject.transform.position, transform.position) < _viewDistanceCloseVision))
         {
             // Calcula a direção que o player está olhando
             Vector2 facingDirection = _playerMovementReference.MainCamera.ScreenToWorldPoint(_playerMovementReference.InputMousePos) - _playerMovementReference.transform.position;

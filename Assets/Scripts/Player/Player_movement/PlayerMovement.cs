@@ -21,9 +21,17 @@ public class PlayerMovement : MonoBehaviour
     #region Variáveis: Direção do input para movimento
 
     private Vector2 _inputMovementDirection;
+    public Vector2 InputMovementDirection
+    {
+        get => _inputMovementDirection;
+        set => _inputMovementDirection = value;
+    }
     private Vector2 _inputMousePos;
-    public Vector2 InputMousePos => _inputMousePos;
-
+    public Vector2 InputMousePos
+    {
+        get => _inputMousePos;
+        set => _inputMousePos = value;
+    }
     #endregion
 
     #region Variáveis: métodos Smooth Vector 2
@@ -45,9 +53,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     [Range(1, 2)]
     private float _playerSpeedRunningModifier;
+    public float PlayerSpeedRunningModifier
+    {
+        get => _playerSpeedRunningModifier;
+        set => _playerSpeedRunningModifier = value;
+    }
     [SerializeField]
     [Range(0, 1)]
     private float _playerSpeedCrouchingModifier;
+    public float PlayerSpeedCrouchingModifier
+    {
+        get => _playerSpeedCrouchingModifier;
+        set => _playerSpeedCrouchingModifier = value;
+    }
     [SerializeField]
     [Range(0, 1)]
     private float _playerSpeedBackwardsModifier;
@@ -55,7 +73,17 @@ public class PlayerMovement : MonoBehaviour
     private float _playerAngleFowardMovimentation;
 
     private float _currentSpeedCrouchModifier;
+    public float CurrentSpeedCrouchModifier
+    {
+        get => _currentSpeedCrouchModifier;
+        set => _currentSpeedCrouchModifier = value;
+    }
     private float _currentSpeedRunModifier;
+    public float CurrentSpeedRunModifier
+    {
+        get => _currentSpeedRunModifier;
+        set => _currentSpeedRunModifier = value;
+    }
     #endregion
 
     private void Awake()
@@ -133,69 +161,5 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        _playerInput.Enable();
-
-        // Movimentação
-        _playerInput.Player.Move.performed += OnMove;
-        _playerInput.Player.Move.canceled += OnMove;
-
-        // Corrida
-        _playerInput.Player.Run.performed += OnRun;
-        _playerInput.Player.Run.canceled += OnRun;
-
-        // Agachar 
-        _playerInput.Player.Crouch.performed += OnCrouch;
-        _playerInput.Player.Crouch.canceled += OnCrouch;
-
-
-        // Observar
-        _playerInput.Player.Look.performed += OnLook;
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.Disable();
-    }
-
-    private void OnMove(InputAction.CallbackContext inputValue)
-    {
-        // Recebe o input do jogador, tranformando em um vetor para movimentação
-        _inputMovementDirection = inputValue.ReadValue<Vector2>().normalized;
-    }
-
-    private void OnRun(InputAction.CallbackContext inputValue)
-    {
-        if (inputValue.action.IsPressed() && _currentSpeedCrouchModifier == 1)
-        {
-            _currentSpeedRunModifier = _playerSpeedRunningModifier;
-            _stateHandler.IsRunning = true;
-        }
-        else
-        {
-            _currentSpeedRunModifier = 1f;
-            _stateHandler.IsRunning = false;
-        }
-    }
-
-    private void OnCrouch(InputAction.CallbackContext inputValue)
-    {
-        if (inputValue.action.IsPressed() && _currentSpeedRunModifier == 1)
-        {
-            _currentSpeedCrouchModifier = _playerSpeedCrouchingModifier;
-            _stateHandler.IsCrouching = true;
-        }
-        else
-        {
-            _currentSpeedCrouchModifier = 1;
-            _stateHandler.IsCrouching = false;
-        }
-    }
-
-    private void OnLook(InputAction.CallbackContext inputValue)
-    {
-        // Pega a posição do mouse como input para a rotação do player
-        _inputMousePos = inputValue.ReadValue<Vector2>();
-    }
+    
 }
