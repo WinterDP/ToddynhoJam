@@ -23,7 +23,6 @@ public class StateMachine : MonoBehaviour
 
         if (nextState != null && nextState != currentState.GetType())
         {
-            Debug.Log(nextState);
             SwitchState(nextState);
         }
     }
@@ -31,6 +30,7 @@ public class StateMachine : MonoBehaviour
     private void SwitchState(Type nextState)
     {
         currentState = avaibleStates[nextState];
+        currentState.EnterState();
         OnStateChanged?.Invoke(currentState);
     }
 }

@@ -15,13 +15,18 @@ public class ChaseState : BaseState
 
         float distance = CalculateDistanceFromTarget();
 
-        if (distance > baseEnemy.DetectionRadius)
+        if (distance > baseEnemy.LoseAgroRadius)
         {
-            baseEnemy.Agent.SetDestination(transform.position);
-            return typeof(IdleState);
+            return typeof(PatrolState);
+        }
+        else if(distance < baseEnemy.AttackRadius)
+        {
+            return typeof(AttackState);
         }
         else
+        {
             return typeof(ChaseState);
+        }
 
     }
 
@@ -33,5 +38,10 @@ public class ChaseState : BaseState
     private float CalculateDistanceFromTarget()
     {
         return Vector3.Distance(baseEnemy.Target.position, transform.position);
+    }
+
+    public override void EnterState()
+    {
+        
     }
 }

@@ -10,15 +10,25 @@ public abstract class BaseEnemy : MonoBehaviour
     public StateMachine StateMachine => GetComponent<StateMachine>();
     [HideInInspector] public NavMeshAgent Agent => GetComponent<NavMeshAgent>();
 
-
-    [Header("Masks")]
     public LayerMask targetMask;
 
-    [Header("Field of View")]
-    public float DetectionRadius = 5f;
+    [Header("Chase Specifics")]
+    public float AttackRadius = 2f;
+    public float DetectionRadius = 7f;
+    public float StartAggroRadius = 5f;
+    public float LoseAgroRadius = 10f;
+    public float Speed = 2f;
 
+    [Header("Patrol Related")]
+    [SerializeField] private float rangeX;
+    [SerializeField] private float rangeY;
+    private Vector3 startPosition;
+    public float RangeX => rangeX;
+    public float RangeY => rangeY;
+    public Vector3 StartPosition => startPosition;
     protected void InitializeStateMachine(Dictionary<Type, BaseState> states)
     {
+        startPosition = transform.position;
         StateMachine.SetStates(states);
     }
 
@@ -29,7 +39,13 @@ public abstract class BaseEnemy : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, AttackRadius);
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, DetectionRadius);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, StartAggroRadius);
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, LoseAgroRadius);
     }
 }

@@ -5,21 +5,30 @@ using System;
 
 public class EnemyExample01 : BaseEnemy
 {
-    //Custom Enemy, Custom Behaviours, Custom properties
+
+
     private void Awake()
     {
         var states = new Dictionary<Type, BaseState>()
         {
             //Behaviuor/States here
+            { typeof(PatrolState), new PatrolState(this) },
             { typeof(IdleState), new IdleState(this) },
+            { typeof(AttackState), new AttackState(this) },
             { typeof(ChaseState), new ChaseState(this) }
 
         };
 
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-
-        SetTarget(GameManager.Instance.GetPlayerReference());
+        Agent.speed = Speed;
+        
         InitializeStateMachine(states);
     }
+
+    private void Start()
+    {
+        SetTarget(GameManager.Instance.GetPlayerReference());
+    }
+
 }

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rigidbody2D;
     private PlayerInput _playerInput;
+    private StateHandler _stateHandler;
 
     private Camera _mainCamera;
     public Camera MainCamera => _mainCamera;
@@ -20,9 +21,17 @@ public class PlayerMovement : MonoBehaviour
     #region Variáveis: Direção do input para movimento
 
     private Vector2 _inputMovementDirection;
+    public Vector2 InputMovementDirection
+    {
+        get => _inputMovementDirection;
+        set => _inputMovementDirection = value;
+    }
     private Vector2 _inputMousePos;
-    public Vector2 InputMousePos => _inputMousePos;
-
+    public Vector2 InputMousePos
+    {
+        get => _inputMousePos;
+        set => _inputMousePos = value;
+    }
     #endregion
 
     #region Variáveis: métodos Smooth Vector 2
@@ -42,18 +51,50 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _playerSpeed;
     [SerializeField]
+    [Range(1, 2)]
+    private float _playerSpeedRunningModifier;
+    public float PlayerSpeedRunningModifier
+    {
+        get => _playerSpeedRunningModifier;
+        set => _playerSpeedRunningModifier = value;
+    }
+    [SerializeField]
+    [Range(0, 1)]
+    private float _playerSpeedCrouchingModifier;
+    public float PlayerSpeedCrouchingModifier
+    {
+        get => _playerSpeedCrouchingModifier;
+        set => _playerSpeedCrouchingModifier = value;
+    }
+    [SerializeField]
     [Range(0, 1)]
     private float _playerSpeedBackwardsModifier;
     [SerializeField]
     private float _playerAngleFowardMovimentation;
 
+    private float _currentSpeedCrouchModifier;
+    public float CurrentSpeedCrouchModifier
+    {
+        get => _currentSpeedCrouchModifier;
+        set => _currentSpeedCrouchModifier = value;
+    }
+    private float _currentSpeedRunModifier;
+    public float CurrentSpeedRunModifier
+    {
+        get => _currentSpeedRunModifier;
+        set => _currentSpeedRunModifier = value;
+    }
     #endregion
 
     private void Awake()
     {
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _stateHandler = gameObject.GetComponent<StateHandler>();
         _playerInput = new PlayerInput();
         _mainCamera = Camera.main;
+
+        _currentSpeedCrouchModifier = 1;
+        _currentSpeedRunModifier = 1;
     }
 
     private void FixedUpdate()
@@ -76,6 +117,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        float _playerCurrentSpeed = _playerSpeed * _currentSpeedCrouchModifier * _currentSpeedRunModifier;
+
         // Faz uma transição suave em um dado tempo para a variação do valor do input
         _smoothedMovementInput = Vector2.SmoothDamp(
             _smoothedMovementInput,
@@ -88,13 +131,23 @@ public class PlayerMovement : MonoBehaviour
         {
             // Está se movendo para frente
             // Adiciona velocidade para o corpo, de acordo com a direção passada pelo input
-            _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed;
+            _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed;
+            _stateHandler.IsWalkingFoward = true;
+            _stateHandler.IsWalkingBackward = false;
         }
         else
         {
             // Está se movendo para trás
             // Adiciona velocidade para o corpo, reduzida por se mover para trás, de acordo com a direção passada pelo input
-            _rigidbody2D.velocity = _smoothedMovementInput * _playerSpeed * _playerSpeedBackwardsModifier;
+            _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed * _playerSpeedBackwardsModifier;
+            _stateHandler.IsWalkingBackward = true;
+            _stateHandler.IsWalkingFoward = false;
+        }
+
+        if (_inputMovementDirection == Vector2.zero)
+        {
+            _stateHandler.IsWalkingFoward = false;
+            _stateHandler.IsWalkingBackward = false;
         }
         
     }
@@ -108,30 +161,5 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void OnEnable()
-    {
-        _playerInput.Enable();
-
-        _playerInput.Player.Move.performed += OnMove;
-        _playerInput.Player.Move.canceled += OnMove;
-
-        _playerInput.Player.Look.performed += OnLook;
-    }
-
-    private void OnDisable()
-    {
-        _playerInput.Disable();
-    }
-
-    private void OnMove(InputAction.CallbackContext inputValue)
-    {
-        // Recebe o input do jogador, tranformando em um vetor para movimentação
-        _inputMovementDirection = inputValue.ReadValue<Vector2>().normalized;
-    }
-
-    private void OnLook(InputAction.CallbackContext inputValue)
-    {
-        // Pega a posição do mouse como input para a rotação do player
-        _inputMousePos = inputValue.ReadValue<Vector2>();
-    }
+    
 }
