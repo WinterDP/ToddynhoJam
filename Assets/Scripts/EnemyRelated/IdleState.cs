@@ -10,20 +10,28 @@ public class IdleState : BaseState
     {
         this.baseEnemy = baseEnemy;
     }
+
+    public override void EnterState()
+    {
+        
+    }
+
     public override Type Tick()
     {
         float distance = CalculateDistanceFromTarget();
 
-        if (distance > baseEnemy.DetectionRadius)
+        if (distance < baseEnemy.StartAggroRadius)
+            return typeof(ChaseState);
+        else if(distance < baseEnemy.DetectionRadius)
             return typeof(IdleState);
         else
-            return typeof(ChaseState);
+            return typeof(PatrolState);
     }
 
 
     private float CalculateDistanceFromTarget()
     {
-        return Vector3.Distance(baseEnemy.Target.position, transform.position);
+        return Vector3.Distance(GameManager.Instance.GetPlayerReference().position, transform.position);
     }
 
 }
