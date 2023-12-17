@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D _rigidbody2D;
     private PlayerInput _playerInput;
+    private StateHandler _stateHandler;
 
     private Camera _mainCamera;
     public Camera MainCamera => _mainCamera;
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _stateHandler = gameObject.GetComponent<StateHandler>();
         _playerInput = new PlayerInput();
         _mainCamera = Camera.main;
 
@@ -102,12 +104,22 @@ public class PlayerMovement : MonoBehaviour
             // Está se movendo para frente
             // Adiciona velocidade para o corpo, de acordo com a direção passada pelo input
             _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed;
+            _stateHandler.IsWalkingFoward = true;
+            _stateHandler.IsWalkingBackward = false;
         }
         else
         {
             // Está se movendo para trás
             // Adiciona velocidade para o corpo, reduzida por se mover para trás, de acordo com a direção passada pelo input
             _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed * _playerSpeedBackwardsModifier;
+            _stateHandler.IsWalkingBackward = true;
+            _stateHandler.IsWalkingFoward = false;
+        }
+
+        if (_inputMovementDirection == Vector2.zero)
+        {
+            _stateHandler.IsWalkingFoward = false;
+            _stateHandler.IsWalkingBackward = false;
         }
         
     }
@@ -158,10 +170,12 @@ public class PlayerMovement : MonoBehaviour
         if (inputValue.action.IsPressed() && _currentSpeedCrouchModifier == 1)
         {
             _currentSpeedRunModifier = _playerSpeedRunningModifier;
+            _stateHandler.IsRunning = true;
         }
         else
         {
             _currentSpeedRunModifier = 1f;
+            _stateHandler.IsRunning = false;
         }
     }
 
@@ -170,10 +184,12 @@ public class PlayerMovement : MonoBehaviour
         if (inputValue.action.IsPressed() && _currentSpeedRunModifier == 1)
         {
             _currentSpeedCrouchModifier = _playerSpeedCrouchingModifier;
+            _stateHandler.IsCrouching = true;
         }
         else
         {
             _currentSpeedCrouchModifier = 1;
+            _stateHandler.IsCrouching = false;
         }
     }
 
