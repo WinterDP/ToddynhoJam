@@ -25,6 +25,10 @@ public class LanternHandler : MonoBehaviour
     private float _lanternMaxRange;
     private float _currentLanternRange;
 
+    [SerializeField]
+    private List<float> _lowBatteryWarningPoints;
+    private bool _warnedLowBatteryLevel;
+
     private void Awake()
     {
         _lanternReference = gameObject.GetComponent<Light2D>();
@@ -33,6 +37,7 @@ public class LanternHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // carrega a bateria na carga maxima quando inciado
         _batteryCurrentCharge = _batteryMaxCharge;
     }
 
@@ -41,28 +46,48 @@ public class LanternHandler : MonoBehaviour
     {
         if (_isLanternTurnedOn)
         {
+            // Caso o player ligue a lanterna, ativa a lanterna e começa a gastar bateria
             TurnOnLantern();
             SpendBattery();
         }
         else
         {
+            // Caso o player desligue a lanterna, desativa a lanterna
             TurnOffLantern();
         }
     }
 
+    #region Métodos: Bateria
     public void SpendBattery()
     {
+        // Caso a bateria esteja com carga
         if (_batteryCurrentCharge > 0)
         {
+            // Pisca a lanterna nos pontos de aviso de carga determinados
+            foreach (float lowBatteryWarningPoint in _lowBatteryWarningPoints)
+            {
+                if ((lowBatteryWarningPoint + 1f) > _batteryCurrentCharge && (lowBatteryWarningPoint - 1f) < _batteryCurrentCharge && !_warnedLowBatteryLevel)
+                {
+                    StartCoroutine(WarningLowBattery());
+                }
+                else
+                {
+                    _warnedLowBatteryLevel = false;
+                }
+            }
+            
+            // Tira carga da bateria quando o tempo passa de acordo com o decaimento determinado
             _batteryCurrentCharge -= _batteryDecay * Time.deltaTime;
         }
         else
         {
+            // Desliga a lanterna
             _batteryCurrentCharge = 0;
             _isLanternTurnedOn = false;
         }
     }
 
+    
     public bool HasBattery()
     {
         if (_batteryCurrentCharge != 0)
@@ -86,8 +111,25 @@ public class LanternHandler : MonoBehaviour
         }
     }
 
+    IEnumerator WarningLowBattery()
+    {
+        // Pisca a lanterna
+        for (int i = 0; i < 5; i++)
+        {
+            // Faz isso
+            TurnOnLantern();
+            yield return new WaitForSeconds(0.1f);
+            // Faz isso depois de alguns segundos
+            TurnOffLantern();
+            _warnedLowBatteryLevel = true;
+        }
+    }
+    #endregion
+
+    #region Métodos: Lanterna
     public void TurnOnLantern()
     {
+        // Se a lanterna estiver desligada liga a lanterna
         if(_currentLanternRange != _lanternMaxRange)
         {
             _lanternReference.pointLightOuterRadius = _lanternMaxRange;
@@ -98,6 +140,7 @@ public class LanternHandler : MonoBehaviour
 
     public void TurnOffLantern()
     {
+        // Se a lanterna estiver ligada desliga a lanterna
         if (_currentLanternRange != 0.5)
         {
             _lanternReference.pointLightOuterRadius = 0.5f;
@@ -105,4 +148,5 @@ public class LanternHandler : MonoBehaviour
             _currentLanternRange = 0.5f;
         }
     }
+    #endregion
 }
