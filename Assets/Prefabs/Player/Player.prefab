@@ -458,6 +458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cede106fcbce1904ca99ccf224934b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _batteryMaxCharge: 100
+  _batteryDecay: 10
+  _lanternMaxRange: 8
 --- !u!1 &8414727857582491544
 GameObject:
   m_ObjectHideFlags: 0
