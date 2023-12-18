@@ -119,7 +119,7 @@ public class LanternHandler : MonoBehaviour
             // Faz isso
             TurnOnLantern();
             yield return new WaitForSeconds(0.1f);
-            // Faz isso depois de alguns segundos
+            // Faz isso depois de alguns segundosa
             TurnOffLantern();
             _warnedLowBatteryLevel = true;
         }

@@ -84,6 +84,13 @@ public class WeaponSO : ScriptableObject
     }
 
     [SerializeField]
+    private float _recoilIncrease;
+    public float RecoilIncrease
+    {
+        get => _recoilIncrease;
+    }
+
+    [SerializeField]
     private float _shakeCameraStrengh;
     public float ShakeCameraStrengh
     {
