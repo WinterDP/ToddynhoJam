@@ -20,6 +20,7 @@ MonoBehaviour:
   _shootRange: 15
   _shootCooldown: 0.5
   _numberOfProjectiles: 1
-  _recoilMaxAngle: 10
+  _recoilMaxAngle: 20
   _recoilMinAngle: 5
+  _recoilIncrease: 3
   _shakeCameraStrengh: 1

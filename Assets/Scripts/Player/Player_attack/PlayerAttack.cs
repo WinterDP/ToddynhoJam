@@ -45,18 +45,10 @@ public class PlayerAttack : MonoBehaviour
     private float _currentAngleRecoil;
     #endregion
 
-
-
-
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-
+        _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
     }
 
     // Update is called once per frame
@@ -134,7 +126,7 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
-
+                _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
             }
         }
     }
@@ -153,7 +145,11 @@ public class PlayerAttack : MonoBehaviour
     {
         if (_currentAngleRecoil < _currentWeapon.RecoilMaxAngle)
         {
-            _currentAngleRecoil += 5f * Time.deltaTime;
+            _currentAngleRecoil += _currentWeapon.RecoilIncrease * Time.deltaTime;
+        }
+        else
+        {
+            _currentAngleRecoil = _currentWeapon.RecoilMaxAngle;
         }
     }
 

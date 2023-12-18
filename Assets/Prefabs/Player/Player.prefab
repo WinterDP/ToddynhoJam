@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee1d8bd5e216b445bdee47dd03da616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWeapon: {fileID: 11400000, guid: 053fafc7249ccef4e864a740c6724f59, type: 2}
+  _currentWeapon: {fileID: 11400000, guid: 310b00e9eb1c2c6488c1ecafe17138d1, type: 2}
   _whatIsEnemy:
     serializedVersion: 2
     m_Bits: 8
