@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnemyExample01 : BaseEnemy
+public class Parrudo : BaseEnemy
 {
-
     private void Awake()
     {
         var states = new Dictionary<Type, BaseState>()
@@ -22,7 +21,7 @@ public class EnemyExample01 : BaseEnemy
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
         Agent.speed = Speed;
-        
+
         InitializeStateMachine(states);
     }
 
@@ -30,5 +29,4 @@ public class EnemyExample01 : BaseEnemy
     {
         SetTarget(GameManager.Instance.GetPlayerReference());
     }
-
 }

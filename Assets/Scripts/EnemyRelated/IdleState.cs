@@ -6,6 +6,8 @@ using UnityEngine;
 public class IdleState : BaseState
 {
     private BaseEnemy baseEnemy;
+
+    private bool calledAllies = false;
     public IdleState(BaseEnemy baseEnemy) : base(baseEnemy.gameObject)
     {
         this.baseEnemy = baseEnemy;
@@ -20,10 +22,18 @@ public class IdleState : BaseState
     {
         float distance = CalculateDistanceFromTarget();
 
-        if (distance < baseEnemy.StartAggroRadius)
+        if (distance < baseEnemy.StartAggroRadius && !baseEnemy.StateMachine.AvaibleStates.ContainsKey(typeof(CallNearbyAlliesState)))
             return typeof(ChaseState);
         else if(distance < baseEnemy.DetectionRadius)
-            return typeof(IdleState);
+        {
+            if(!calledAllies && !baseEnemy.StateMachine.AvaibleStates.ContainsKey(typeof(CallNearbyAlliesState)))
+            {
+                calledAllies = true;
+                return typeof(IdleState);
+            }
+            else
+                return typeof(CallNearbyAlliesState);
+        }
         else
             return typeof(PatrolState);
     }
