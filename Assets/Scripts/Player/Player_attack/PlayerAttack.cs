@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    #region Variáveis: configuração geral
+    [SerializeField]
+    private WeaponSO _currentWeapon;
+    [SerializeField]
+    private LayerMask _whatIsEnemy;
+    [SerializeField]
+    private CameraShakeController _cameraShakeControllerReference;
+    #endregion
+
+    #region Variáveis: Melee
+    [Header("Ataque Melee")]
     private bool _isMeleeAttacking;
     public bool IsMeleeAttacking
     {
@@ -11,39 +22,60 @@ public class PlayerAttack : MonoBehaviour
         set => _isMeleeAttacking = value;
     }
 
-
-    [SerializeField]
-    private WeaponSO _currentWeapon;
     [SerializeField]
     private Transform _attackPosition;
+
+    private float _currentMeleeCooldown;
+    #endregion
+
+    #region Variáveis: Tiro
+    [Header("Ataque a distancia")]
+    private bool _isFiring;
+    public bool IsFiring
+    {
+        get => _isFiring;
+        set => _isFiring = value;
+    }
+    private float _currentShootCooldown;
     [SerializeField]
-    private LayerMask _whatIsEnemy;
-    private float _currentCooldown;
+    private Transform _firePoint;
+    [SerializeField]
+    private LayerMask _IgnoreLayers;
+
+    private float _currentAngleRecoil;
+    #endregion
+
+
+
+
+
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
     {
         MeleeAttack();
+        Shoot();
     }
 
     public void MeleeAttack()
     {
-        if(_currentCooldown > 0)
+        if (_currentMeleeCooldown > 0)
         {
-            _currentCooldown -= Time.deltaTime;
+            _currentMeleeCooldown -= Time.deltaTime;
         }
         else
         {
@@ -53,18 +85,83 @@ public class PlayerAttack : MonoBehaviour
 
                 foreach (Collider2D enemy in enemiesToDamage)
                 {
-                    Debug.Log("atingiu "+enemy.gameObject.name);
+                    Debug.Log("atingiu " + enemy.gameObject.name);
                 }
 
                 _isMeleeAttacking = false;
-                _currentCooldown = _currentWeapon.MeleeAttackCooldown;
+                _currentMeleeCooldown = _currentWeapon.MeleeAttackCooldown;
             }
         }
     }
 
+    private void Shoot()
+    {
+        if (_currentShootCooldown > 0)
+        {
+            _currentShootCooldown -= Time.deltaTime;
+        }
+        else
+        {
+            if (_isFiring)
+            {
+                for (int i = 0; i < _currentWeapon.NumberOfProjectiles; i++)
+                {
+                    Vector3 shootingDirection = HandleRecoil();
+
+                    RaycastHit2D ray = Physics2D.Raycast(_firePoint.position, shootingDirection, _currentWeapon.ShootRange, ~(_IgnoreLayers));
+
+                    GameObject trail = Instantiate(_currentWeapon.ShootBulletTrailPrefab, _firePoint.position, transform.rotation);
+
+                    BulletTrail bulletTrailReference = trail.GetComponent<BulletTrail>();
+
+                    if (ray.collider != null)
+                    {
+                        bulletTrailReference.SetTargetPosition(ray.point);
+                        Debug.Log(ray.collider.gameObject.name);
+                        // lógica de acertar algo
+                    }
+                    else
+                    {
+                        Vector2 endPoint = _firePoint.position + shootingDirection * _currentWeapon.ShootRange;
+
+                        bulletTrailReference.SetTargetPosition(endPoint);
+                    }
+
+                }
+
+                _cameraShakeControllerReference.ShakeCamera(_currentWeapon.ShakeCameraStrengh, 0.1f);
+                _currentShootCooldown = _currentWeapon.ShootCooldown;
+            }
+            else
+            {
+
+            }
+        }
+    }
+
+    public Vector3 HandleRecoil()
+    {
+
+        CalculateRecoil();
+
+        float AngleRecoil = Random.Range(_currentAngleRecoil, -_currentAngleRecoil);
+
+        return Quaternion.AngleAxis(AngleRecoil, Vector3.forward) * transform.right;
+    }
+
+    public void CalculateRecoil()
+    {
+        if (_currentAngleRecoil < _currentWeapon.RecoilMaxAngle)
+        {
+            _currentAngleRecoil += 5f * Time.deltaTime;
+        }
+    }
+
+    #if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_attackPosition.position, _currentWeapon.MeleeAtackRange);
     }
+    #endif
 }

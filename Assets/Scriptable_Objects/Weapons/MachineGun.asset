@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1f563e8368544246bd25bf519256f73, type: 3}
-  m_Name: Revolver
+  m_Name: MachineGun
   m_EditorClassIdentifier: 
-  _meleeAttackDamage: 5
-  _meleeAttackCooldown: 0.5
-  _meleeAttackRange: 0.8
-  _shootSpeed: 5
+  _meleeAttackDamage: 10
+  _meleeAttackCooldown: 5
+  _meleeAttackRange: 1.5
+  _shootSpeed: 8
   _shootBulletTrailPrefab: {fileID: 6719760071488752054, guid: 31e64a74b10665f4ca1bb450156152a9, type: 3}
-  _shootRange: 15
-  _shootCooldown: 0.5
+  _shootRange: 20
+  _shootCooldown: 0.2
   _numberOfProjectiles: 1
-  _recoilMaxAngle: 10
+  _recoilMaxAngle: 25
   _recoilMinAngle: 5
-  _shakeCameraStrengh: 1
+  _shakeCameraStrengh: 1.5

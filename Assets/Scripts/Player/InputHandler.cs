@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-
     private PlayerInput _playerInput;
 
     #region Movimentação
@@ -62,6 +61,10 @@ public class InputHandler : MonoBehaviour
         //Ataque melee
         _playerInput.Player.MeleeAttack.performed += OnMeleeAttack;
         _playerInput.Player.MeleeAttack.canceled += OnMeleeAttack;
+
+        //Atirar
+        _playerInput.Player.Fire.performed += OnFire;
+        _playerInput.Player.Fire.canceled += OnFire;
     }
 
     private void OnDisable()
@@ -138,5 +141,19 @@ public class InputHandler : MonoBehaviour
             _playerAttackReference.IsMeleeAttacking = false;
         }
     }
+
+    private void OnFire(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed())
+        {
+            _playerAttackReference.IsFiring = true;
+        }
+        else
+        {
+            _playerAttackReference.IsFiring = false;
+        }
+    }
+
+
     #endregion
 }

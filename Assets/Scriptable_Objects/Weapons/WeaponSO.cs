@@ -28,4 +28,66 @@ public class WeaponSO : ScriptableObject
     }
 
     #endregion
+
+    #region Variáveis: Tiro
+    [Header("Ataque a distancia")]
+    [SerializeField]
+    private float _shootSpeed;
+    public float ShootSpeed
+    {
+        get => _shootSpeed;
+    }
+
+
+    [SerializeField]
+    private GameObject _shootBulletTrailPrefab;
+    public GameObject ShootBulletTrailPrefab
+    {
+        get => _shootBulletTrailPrefab;
+    }
+
+
+    [SerializeField]
+    private float _shootRange;
+    public float ShootRange
+    {
+        get => _shootRange;
+    }
+
+
+    [SerializeField]
+    private float _shootCooldown;
+    public float ShootCooldown
+    {
+        get => _shootCooldown;
+    }
+
+    [SerializeField]
+    private float _numberOfProjectiles;
+    public float NumberOfProjectiles
+    {
+        get => _numberOfProjectiles;
+    }
+
+    [SerializeField]
+    private float _recoilMaxAngle;
+    public float RecoilMaxAngle
+    {
+        get => _recoilMaxAngle;
+    }
+
+    [SerializeField]
+    private float _recoilMinAngle;
+    public float RecoilMinAngle
+    {
+        get => _recoilMinAngle;
+    }
+
+    [SerializeField]
+    private float _shakeCameraStrengh;
+    public float ShakeCameraStrengh
+    {
+        get => _shakeCameraStrengh;
+    }
+    #endregion
 }

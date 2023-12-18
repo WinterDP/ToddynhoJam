@@ -15,3 +15,11 @@ MonoBehaviour:
   _meleeAttackDamage: 10
   _meleeAttackCooldown: 2
   _meleeAttackRange: 1
+  _shootSpeed: 5
+  _shootBulletTrailPrefab: {fileID: 6719760071488752054, guid: 31e64a74b10665f4ca1bb450156152a9, type: 3}
+  _shootRange: 10
+  _shootCooldown: 0.8
+  _numberOfProjectiles: 5
+  _recoilMaxAngle: 30
+  _recoilMinAngle: 15
+  _shakeCameraStrengh: 3
