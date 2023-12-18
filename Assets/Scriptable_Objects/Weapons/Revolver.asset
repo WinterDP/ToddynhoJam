@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f563e8368544246bd25bf519256f73, type: 3}
+  m_Name: Revolver
+  m_EditorClassIdentifier: 
+  _meleeAttackDamage: 5
+  _meleeAttackCooldown: 0.5
+  _meleeAttackRange: 0.8
+  _shootSpeed: 5
+  _shootBulletTrailPrefab: {fileID: 6719760071488752054, guid: 31e64a74b10665f4ca1bb450156152a9, type: 3}
+  _shootRange: 15
+  _shootCooldown: 0.5
+  _numberOfProjectiles: 1
+  _recoilMaxAngle: 10
+  _recoilMinAngle: 5
+  _shakeCameraStrengh: 1

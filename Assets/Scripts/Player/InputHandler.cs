@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-
     private PlayerInput _playerInput;
 
     #region Movimentação
@@ -14,6 +13,10 @@ public class InputHandler : MonoBehaviour
 
     #region Lanterna
     private LanternHandler _lanternHandlerReference;
+    #endregion
+
+    #region Ataque
+    private PlayerAttack _playerAttackReference;
     #endregion
 
     private StateHandler _stateHandler;
@@ -26,18 +29,9 @@ public class InputHandler : MonoBehaviour
 
         _lanternHandlerReference = gameObject.GetComponentInChildren<LanternHandler>();
 
-        _stateHandler = gameObject.GetComponent<StateHandler>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+        _playerAttackReference = gameObject.GetComponent<PlayerAttack>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _stateHandler = gameObject.GetComponent<StateHandler>();
     }
 
     #region Configuração input
@@ -63,6 +57,14 @@ public class InputHandler : MonoBehaviour
         // Agachar 
         _playerInput.Player.TurnOnLantern.performed += OnLanternTurnOn;
         _playerInput.Player.TurnOnLantern.canceled += OnLanternTurnOn;
+
+        //Ataque melee
+        _playerInput.Player.MeleeAttack.performed += OnMeleeAttack;
+        _playerInput.Player.MeleeAttack.canceled += OnMeleeAttack;
+
+        //Atirar
+        _playerInput.Player.Fire.performed += OnFire;
+        _playerInput.Player.Fire.canceled += OnFire;
     }
 
     private void OnDisable()
@@ -124,5 +126,34 @@ public class InputHandler : MonoBehaviour
             _lanternHandlerReference.IsLanternTurnedOn = !_lanternHandlerReference.IsLanternTurnedOn;
         }
     }
+    #endregion
+
+    #region Ataque
+
+    private void OnMeleeAttack(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed())
+        {
+            _playerAttackReference.IsMeleeAttacking = true;
+        }
+        else
+        {
+            _playerAttackReference.IsMeleeAttacking = false;
+        }
+    }
+
+    private void OnFire(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed())
+        {
+            _playerAttackReference.IsFiring = true;
+        }
+        else
+        {
+            _playerAttackReference.IsFiring = false;
+        }
+    }
+
+
     #endregion
 }
