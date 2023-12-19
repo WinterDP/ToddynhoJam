@@ -128,6 +128,7 @@ public class PlayerAttack : MonoBehaviour
 
                 }
 
+                //AmmoUI.OnAmmoUpdate?.Invoke(currentWeaponAmmo);
                 _cameraShakeControllerReference.ShakeCamera(_currentWeapon.ShakeCameraStrengh, 0.1f);
                 _currentShootCooldown = _currentWeapon.ShootCooldown;
             }

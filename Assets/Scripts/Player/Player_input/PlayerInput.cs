@@ -851,6 +851,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Dialogue"",
+            ""id"": ""d8d9926d-485f-417d-84da-2f99b7e1c429"",
+            ""actions"": [
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""fde08213-71fa-4d24-afc8-50fb3ec3dbbf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3a9e82c7-2ebd-4a58-995d-eab2ef6b4f7d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -937,6 +965,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // Dialogue
+        m_Dialogue = asset.FindActionMap("Dialogue", throwIfNotFound: true);
+        m_Dialogue_Interact = m_Dialogue.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1206,6 +1237,52 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // Dialogue
+    private readonly InputActionMap m_Dialogue;
+    private List<IDialogueActions> m_DialogueActionsCallbackInterfaces = new List<IDialogueActions>();
+    private readonly InputAction m_Dialogue_Interact;
+    public struct DialogueActions
+    {
+        private @PlayerInput m_Wrapper;
+        public DialogueActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Interact => m_Wrapper.m_Dialogue_Interact;
+        public InputActionMap Get() { return m_Wrapper.m_Dialogue; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(DialogueActions set) { return set.Get(); }
+        public void AddCallbacks(IDialogueActions instance)
+        {
+            if (instance == null || m_Wrapper.m_DialogueActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_DialogueActionsCallbackInterfaces.Add(instance);
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+        }
+
+        private void UnregisterCallbacks(IDialogueActions instance)
+        {
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+        }
+
+        public void RemoveCallbacks(IDialogueActions instance)
+        {
+            if (m_Wrapper.m_DialogueActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IDialogueActions instance)
+        {
+            foreach (var item in m_Wrapper.m_DialogueActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_DialogueActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public DialogueActions @Dialogue => new DialogueActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1273,5 +1350,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface IDialogueActions
+    {
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
