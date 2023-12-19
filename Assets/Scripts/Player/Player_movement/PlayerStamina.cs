@@ -19,11 +19,16 @@ public class PlayerStamina : MonoBehaviour
     private float _currentStamina;
     private float _regenTimer;
 
+    public float CurrentStamina => _currentStamina;
+    public float MaxStamina => _maxStamina;
+
+    private StaminaFeedback _staminaFeedback;
 
     private void Awake()
     {
 
         _stateHandlerReference = gameObject.GetComponent<StateHandler>();
+        _staminaFeedback = GetComponent<StaminaFeedback>();
     }
 
 
@@ -37,6 +42,7 @@ public class PlayerStamina : MonoBehaviour
     void Update()
     {
         UpdateStamina();
+        _staminaFeedback.UpdateStaminaBar(_currentStamina);
     }
 
     public void UpdateStamina()
