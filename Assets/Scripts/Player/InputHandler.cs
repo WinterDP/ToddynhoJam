@@ -19,6 +19,16 @@ public class InputHandler : MonoBehaviour
     private PlayerAttack _playerAttackReference;
     #endregion
 
+    #region Interação
+    private bool _isInteracting;
+
+    public bool IsInteracting
+    {
+        get => _isInteracting;
+        set => _isInteracting = value;
+    }
+    #endregion
+
     private StateHandler _stateHandler;
 
     private void Awake()
@@ -65,6 +75,10 @@ public class InputHandler : MonoBehaviour
         //Atirar
         _playerInput.Player.Fire.performed += OnFire;
         _playerInput.Player.Fire.canceled += OnFire;
+
+        //Interagir
+        _playerInput.Player.Interact.performed += OnInteract;
+        _playerInput.Player.Interact.canceled += OnInteract;
     }
 
     private void OnDisable()
@@ -153,5 +167,15 @@ public class InputHandler : MonoBehaviour
     }
 
 
+    #endregion
+
+    #region Interação
+    private void OnInteract(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed())
+        {
+            _isInteracting = true;
+        }
+    }
     #endregion
 }
