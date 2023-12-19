@@ -9,7 +9,35 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
 
     [SerializeField] private TextMeshProUGUI _textComponent;
+    private Animator _animator;
 
+    private PlayerInput _playerInput;
+    private bool _dialogueIsOpen = false;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _playerInput = new PlayerInput();
+    }
+
+    private void OnEnable()
+    {
+        _playerInput.Enable();
+        _playerInput.Dialogue.Interact.performed += ContinueDialogue;
+    }
+
+
+    private void OnDisable()
+    {
+        _playerInput.Disable();
+        _playerInput.Dialogue.Interact.performed -= ContinueDialogue;
+    }
+
+
+    private void ContinueDialogue(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        DisplayNextMessage();
+    }
 
     private void Start()
     {
@@ -18,6 +46,8 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue) 
     {
         sentences.Clear();
+        _dialogueIsOpen = true;
+        _animator.SetBool("Open", true);
 
         foreach(var st in dialogue.Sentences)
         {
@@ -28,7 +58,7 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    private void DisplayNextMessage()
+    public void DisplayNextMessage()
     {
         if (sentences.Count == 0)
         {
@@ -43,7 +73,8 @@ public class DialogueManager : MonoBehaviour
     }
     private void EndDialogue()
     {
-        // close text box animation
+        _dialogueIsOpen = false;
+        _animator.SetBool("Open", false);
     }
 
 

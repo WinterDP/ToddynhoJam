@@ -8,7 +8,7 @@ public class AmmoUI : MonoBehaviour
 {
     private TextMeshProUGUI _textComponent;
 
-    private static Action<int> OnAmmoUpdate;
+    public static Action<int> OnAmmoUpdate;
 
     void Awake()
     {
