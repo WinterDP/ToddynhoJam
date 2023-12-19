@@ -86,7 +86,6 @@ public class InputHandler : MonoBehaviour
         if (inputValue.action.IsPressed() && _playerMovementReference.CurrentSpeedCrouchModifier == 1)
         {
             _playerMovementReference.CurrentSpeedRunModifier = _playerMovementReference.PlayerSpeedRunningModifier;
-            _stateHandler.IsRunning = true;
         }
         else
         {
@@ -105,7 +104,6 @@ public class InputHandler : MonoBehaviour
         else
         {
             _playerMovementReference.CurrentSpeedCrouchModifier = 1;
-            _stateHandler.IsCrouching = false;
         }
     }
 

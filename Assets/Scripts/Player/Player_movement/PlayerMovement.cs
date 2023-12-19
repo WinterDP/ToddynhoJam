@@ -117,6 +117,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+
+        if (!_stateHandler.HasStamina)
+        {
+            _currentSpeedRunModifier = 0f;
+        }
+        else
+        {
+            if (_currentSpeedRunModifier == 0f)
+            {
+                _currentSpeedRunModifier = 1f;
+            }
+        }
+
+        if (_currentSpeedRunModifier != 1f && _currentSpeedRunModifier != 0f)
+            _stateHandler.IsRunning = true;
+
+        
         float _playerCurrentSpeed = _playerSpeed * _currentSpeedCrouchModifier * _currentSpeedRunModifier;
 
         // Faz uma transição suave em um dado tempo para a variação do valor do input
@@ -126,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             ref _movementInputSmoothVelocity,
             _smoothTime
             );
-
+       
         if (Vector2.Angle(_mainCamera.ScreenToWorldPoint(_inputMousePos) - transform.position, _inputMovementDirection) < _playerAngleFowardMovimentation)
         {
             // Está se movendo para frente
@@ -143,11 +160,14 @@ public class PlayerMovement : MonoBehaviour
             _stateHandler.IsWalkingBackward = true;
             _stateHandler.IsWalkingFoward = false;
         }
+        
 
-        if (_inputMovementDirection == Vector2.zero)
+        if (_inputMovementDirection == Vector2.zero || _rigidbody2D.velocity == Vector2.zero)
         {
+            _rigidbody2D.velocity = Vector2.zero;
             _stateHandler.IsWalkingFoward = false;
             _stateHandler.IsWalkingBackward = false;
+            _stateHandler.IsRunning = false;
         }
         
     }
