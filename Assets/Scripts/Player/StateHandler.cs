@@ -35,6 +35,17 @@ public class StateHandler : MonoBehaviour
 
     #region Ataque Disparo
     private PlayerAttack _playerAttackReference;
+
+    private bool _isShooting;
+    public bool IsShooting
+    {
+        get => _isShooting;
+        set => _isShooting = value;
+    }
+    #endregion
+
+    #region MyRegion
+
     #endregion
 
     #region Stamina
@@ -46,6 +57,14 @@ public class StateHandler : MonoBehaviour
     }
     #endregion
 
+    #region Interação
+    private bool _isInteracting = false;
+    public bool IsInteracting
+    {
+        get => _isInteracting;
+        set => _isInteracting = value;
+    }
+    #endregion
     // Start is called before the first frame update
     void Start()
     {
