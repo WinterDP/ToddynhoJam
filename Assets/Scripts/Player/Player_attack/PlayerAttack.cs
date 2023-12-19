@@ -11,6 +11,8 @@ public class PlayerAttack : MonoBehaviour
     private LayerMask _whatIsEnemy;
     [SerializeField]
     private CameraShakeController _cameraShakeControllerReference;
+
+    private StateHandler _stateHandlerReference;
     #endregion
 
     #region Variáveis: Melee
@@ -44,6 +46,11 @@ public class PlayerAttack : MonoBehaviour
 
     private float _currentAngleRecoil;
     #endregion
+
+    private void Awake()
+    {
+        _stateHandlerReference = gameObject.GetComponent<StateHandler>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -126,7 +133,10 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
-                _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
+                if (!_stateHandlerReference.IsRunning)
+                {
+                    _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
+                }
             }
         }
     }

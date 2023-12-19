@@ -33,15 +33,36 @@ public class StateHandler : MonoBehaviour
     }
     #endregion
 
+    #region Ataque Disparo
+    private PlayerAttack _playerAttackReference;
+    #endregion
+
+    #region Stamina
+    private bool _hasStamina = true;
+    public bool HasStamina
+    {
+        get => _hasStamina;
+        set => _hasStamina = value;
+    }
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _playerAttackReference = gameObject.GetComponent<PlayerAttack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        RunningRecoil();
+    }
+
+    public void RunningRecoil()
+    {
+        if (_isRunning)
+        {
+            _playerAttackReference.CalculateRecoil();
+        }
     }
 }
