@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
+    [SerializeField] private bool falaDoPlayer;
     [SerializeField] private Dialogue dialogue;
+
 
     public void TriggerDialogue()
     {
-        FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
+        FindObjectOfType<DialogueManager>().StartDialogue(dialogue, falaDoPlayer);
     }
 
 }
