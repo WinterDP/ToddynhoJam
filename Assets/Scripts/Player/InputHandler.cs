@@ -137,7 +137,7 @@ public class InputHandler : MonoBehaviour
 
     private void OnLanternTurnOn(InputAction.CallbackContext inputValue)
     {
-        if (inputValue.action.IsPressed() && _lanternHandlerReference.HasBattery())
+        if (inputValue.action.IsPressed() && _lanternHandlerReference.HasBattery() && !_stateHandler.IsInteracting)
         {
             _lanternHandlerReference.IsLanternTurnedOn = !_lanternHandlerReference.IsLanternTurnedOn;
         }

@@ -21,7 +21,7 @@ MonoBehaviour:
   _shootCooldown: 0.5
   _maxWeaponAmmo: 12
   _maxWeaponAmmoPerClip: 12
-  _currentWeaponAmmo: 0
+  _currentWeaponAmmo: 12
   _numberOfProjectiles: 1
   _recoilMaxAngle: 20
   _recoilMinAngle: 5

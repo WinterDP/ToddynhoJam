@@ -7,15 +7,14 @@ public class StaminaFeedback : MonoBehaviour
 {
     private RectTransform _rectTransformReference;
     private PlayerStamina playerStamina;
+    [SerializeField]
     private Slider staminaSlider;
     [SerializeField]
     private Image _staminaSliderFillArea;
 
     private void Awake()
     {
-
         _rectTransformReference = GetComponentInChildren<RectTransform>();
-        staminaSlider = GetComponentInChildren<Slider>();
     }
     void Start()
     {
