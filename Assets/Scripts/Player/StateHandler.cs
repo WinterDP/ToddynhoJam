@@ -69,6 +69,27 @@ public class StateHandler : MonoBehaviour
         get => _isInteracting;
         set => _isInteracting = value;
     }
+
+    private bool _hasCardBlue;
+    public bool HasCardBlue
+    {
+        get => _hasCardBlue;
+        set => _hasCardBlue = value;
+    }
+
+    private bool _hasCardPurple;
+    public bool HasCardPurple
+    {
+        get => _hasCardPurple;
+        set => _hasCardPurple = value;
+    }
+
+    private bool _hasCardGray;
+    public bool HasCardGray
+    {
+        get => _hasCardGray;
+        set => _hasCardGray = value;
+    }
     #endregion
     // Start is called before the first frame update
     void Start()

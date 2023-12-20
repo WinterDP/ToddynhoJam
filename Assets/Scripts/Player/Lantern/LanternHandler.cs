@@ -140,8 +140,6 @@ public class LanternHandler : MonoBehaviour
         // Se a lanterna estiver desligada liga a lanterna
         if(_currentLanternRange != _lanternMaxRange)
         {
-
-            _isLanternTurnedOn = true;
             _lanternReference.pointLightOuterRadius = _lanternMaxRange;
             _lanternReference.pointLightInnerRadius = _lanternMaxRange / 2f;
             _currentLanternRange = _lanternMaxRange;
@@ -153,7 +151,6 @@ public class LanternHandler : MonoBehaviour
         // Se a lanterna estiver ligada desliga a lanterna
         if (_currentLanternRange != 0.5)
         {
-            _isLanternTurnedOn = false;
             _lanternReference.pointLightOuterRadius = 0.5f;
             _lanternReference.pointLightInnerRadius = 0.5f / 2f;
             _currentLanternRange = 0.5f;

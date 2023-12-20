@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     public WeaponSO CurrentWeapon
     {
         get => _currentWeapon;
+        set => _currentWeapon = value;
     }
     [SerializeField]
     private LayerMask _whatIsEnemy;
@@ -18,6 +19,10 @@ public class PlayerAttack : MonoBehaviour
 
     private StateHandler _stateHandlerReference;
     private AmmoUI _ammoUIReference;
+    public AmmoUI AmmoUIReference
+    {
+        get => _ammoUIReference;
+    }
     #endregion
 
     #region Variáveis: Melee

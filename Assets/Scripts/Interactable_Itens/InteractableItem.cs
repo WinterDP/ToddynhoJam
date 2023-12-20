@@ -59,7 +59,7 @@ public abstract class InteractableItem : MonoBehaviour
                     // Caso o player realize alguma ação a iteração é encerrada
                     if (stateHandlerReference.IsWalkingBackward || stateHandlerReference.IsWalkingFoward || stateHandlerReference.IsCrouching || stateHandlerReference.IsRunning || stateHandlerReference.IsShooting)
                     {
-                        if (_currentLanternState)
+                        if (_currentLanternState && stateHandlerReference.HasLantern)
                             _lanterHandlerReference.TurnOnLantern();
 
                         _currentTimeInteracting = _timeToInteract;
@@ -72,7 +72,7 @@ public abstract class InteractableItem : MonoBehaviour
                 else
                 {
                     // Ao fim do tempo de interação o player interage com o item
-                    if (_currentLanternState)
+                    if (_currentLanternState && stateHandlerReference.HasLantern)
                         _lanterHandlerReference.TurnOnLantern();
                     InteractWithItem(collision);
                     _currentTimeInteracting = _timeToInteract;

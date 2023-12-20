@@ -19,6 +19,9 @@ MonoBehaviour:
   _shootBulletTrailPrefab: {fileID: 6719760071488752054, guid: 31e64a74b10665f4ca1bb450156152a9, type: 3}
   _shootRange: 20
   _shootCooldown: 0.2
+  _maxWeaponAmmo: 30
+  _maxWeaponAmmoPerClip: 30
+  _currentWeaponAmmo: 30
   _numberOfProjectiles: 1
   _recoilMaxAngle: 20
   _recoilMinAngle: 5

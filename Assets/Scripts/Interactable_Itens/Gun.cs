@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battery : InteractableItem
+public class Gun : InteractableItem
 {
     [SerializeField]
-    private float _batteryRechargeValue;
+    private WeaponSO _weapon;
     public override void InteractWithItem(Collider2D collision)
     {
-        collision.gameObject.GetComponentInChildren<LanternHandler>().ChargeBattery(_batteryRechargeValue);
+        PlayerAttack playerAttackReference = collision.gameObject.GetComponentInChildren<PlayerAttack>();
+        playerAttackReference.CurrentWeapon = _weapon;
+        playerAttackReference.AmmoUIReference.AmmoUpdate();
         ItemInteracted();
     }
 
