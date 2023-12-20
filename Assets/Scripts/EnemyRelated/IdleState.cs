@@ -41,7 +41,7 @@ public class IdleState : BaseState
 
     private float CalculateDistanceFromTarget()
     {
-        return Vector3.Distance(GameManager.Instance.GetPlayerReference().position, transform.position);
+        return Vector3.Distance(GameManager.Instance.GetPlayerReference().position, transform.position) + PlayerNoise.NoiseDistance;
     }
 
 }

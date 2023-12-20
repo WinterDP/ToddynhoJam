@@ -60,7 +60,7 @@ public class PatrolState : BaseState
 
     private float CalculateDistanceFromPlayer()
     {
-        return Vector3.Distance(transform.position, GameManager.Instance.GetPlayerReference().position);
+        return Vector3.Distance(transform.position, GameManager.Instance.GetPlayerReference().position) + PlayerNoise.NoiseDistance;
     }
 
     public override void EnterState()
