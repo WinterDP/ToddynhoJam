@@ -19,6 +19,7 @@ public abstract class BaseEnemy : MonoBehaviour
     public float LoseAgroRadius = 10f;
     public float Speed = 2f;
     public int Damage = 1;
+    public int StunTimeInMilliseconds = 200;
 
     [Header("Patrol Related")]
     [SerializeField] private float rangeX;

@@ -22,6 +22,7 @@ public class CallNearbyAlliesState : BaseState
     {
         if (alreadyCalledAllies)
             return;
+
         callingAlliesTask = StartCallingAllies();
     }
 
