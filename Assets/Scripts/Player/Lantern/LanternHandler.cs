@@ -44,6 +44,7 @@ public class LanternHandler : MonoBehaviour
 
         TurnOffLantern();
         _batteryCurrentCharge = _batteryMaxCharge;
+        BatteryUI.OnBatterySpent?.Invoke(_batteryCurrentCharge, _batteryMaxCharge);
     }
 
     // Update is called once per frame
@@ -83,7 +84,8 @@ public class LanternHandler : MonoBehaviour
                     _warnedLowBatteryLevel = false;
                 }
             }
-            
+
+            BatteryUI.OnBatterySpent?.Invoke(_batteryCurrentCharge, _batteryMaxCharge);
             // Tira carga da bateria quando o tempo passa de acordo com o decaimento determinado
             _batteryCurrentCharge -= _batteryDecay * Time.deltaTime;
         }
@@ -91,6 +93,7 @@ public class LanternHandler : MonoBehaviour
         {
             // Desliga a lanterna
             _batteryCurrentCharge = 0;
+            BatteryUI.OnBatterySpent?.Invoke(_batteryCurrentCharge, _batteryMaxCharge);
             _isLanternTurnedOn = false;
         }
     }
