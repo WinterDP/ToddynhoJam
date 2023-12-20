@@ -136,6 +136,7 @@ public class PlayerAttack : MonoBehaviour
                     {
                         bulletTrailReference.SetTargetPosition(ray.point);
                         Debug.Log(ray.collider.gameObject.name);
+                        ray.collider.GetComponent<UnitHealth>()?.TakeDamage((int)_currentWeapon.MeleeAttackDamage);
                         // lógica de acertar algo
                     }
                     else
