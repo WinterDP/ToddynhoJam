@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoBox : InteractableItem
+public class Gun : InteractableItem
 {
     [SerializeField]
-    private int _ammoAmount;
+    private WeaponSO _weapon;
     public override void InteractWithItem(Collider2D collision)
     {
         PlayerAttack playerAttackReference = collision.gameObject.GetComponentInChildren<PlayerAttack>();
-        playerAttackReference.CurrentWeapon.MaxWeaponAmmo += _ammoAmount;
+        playerAttackReference.CurrentWeapon = _weapon;
         playerAttackReference.AmmoUIReference.AmmoUpdate();
         ItemInteracted();
     }
@@ -19,4 +19,3 @@ public class AmmoBox : InteractableItem
         Destroy(gameObject);
     }
 }
-
