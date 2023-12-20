@@ -23,6 +23,8 @@ public class LanternHandler : MonoBehaviour
 
     [SerializeField]
     private float _lanternMaxRange;
+    [SerializeField]
+    private float _lanternMinRange;
     private float _currentLanternRange;
 
     [SerializeField]
@@ -143,7 +145,7 @@ public class LanternHandler : MonoBehaviour
 
             _isLanternTurnedOn = true;
             _lanternReference.pointLightOuterRadius = _lanternMaxRange;
-            _lanternReference.pointLightInnerRadius = _lanternMaxRange / 2f;
+            _lanternReference.pointLightInnerRadius = _lanternMinRange;
             _currentLanternRange = _lanternMaxRange;
         }
     }
