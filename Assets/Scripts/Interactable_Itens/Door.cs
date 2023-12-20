@@ -25,12 +25,15 @@ public class Door : InteractableItem
                 break;
             case CardColor.BLUE:
                 _canOpenDoor = (stateHandler.HasCardBlue) ? true : false;
+                stateHandler.HasCardBlue = _canOpenDoor ? false : true;
                 break;
             case CardColor.PURPLE:
                 _canOpenDoor = (stateHandler.HasCardPurple) ? true : false;
+                stateHandler.HasCardPurple = _canOpenDoor ? false : true;
                 break;
             case CardColor.GRAY:
                 _canOpenDoor = (stateHandler.HasCardGray) ? true : false;
+                stateHandler.HasCardGray = _canOpenDoor ? false : true;
                 break;
         }
     }
