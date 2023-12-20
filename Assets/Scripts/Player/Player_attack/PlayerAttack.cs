@@ -87,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (_isMeleeAttacking)
             {
+                PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.RunningNoise);
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackPosition.position, _currentWeapon.MeleeAtackRange, _whatIsEnemy);
 
                 foreach (Collider2D enemy in enemiesToDamage)
@@ -110,6 +111,7 @@ public class PlayerAttack : MonoBehaviour
         {
             if (_isFiring)
             {
+                PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.ShootingNoise);
                 if (_currentWeapon.CurrentWeaponAmmo == 0)
                 {
                     return;

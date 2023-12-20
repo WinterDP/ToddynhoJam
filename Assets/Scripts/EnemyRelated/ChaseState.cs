@@ -37,7 +37,7 @@ public class ChaseState : BaseState
 
     private float CalculateDistanceFromTarget()
     {
-        return Vector3.Distance(baseEnemy.Target.position, transform.position);
+        return Vector3.Distance(baseEnemy.Target.position, transform.position) + PlayerNoise.NoiseDistance;
     }
 
     public override void EnterState()

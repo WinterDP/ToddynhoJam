@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
             _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed;
             _stateHandler.IsWalkingFoward = true;
             _stateHandler.IsWalkingBackward = false;
+            PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.NormalMovementNoise);
         }
         else
         {
@@ -159,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
             _rigidbody2D.velocity = _smoothedMovementInput * _playerCurrentSpeed * _playerSpeedBackwardsModifier;
             _stateHandler.IsWalkingBackward = true;
             _stateHandler.IsWalkingFoward = false;
+            PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.BackwardsMovementNoise);
         }
         
 
@@ -168,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
             _stateHandler.IsWalkingFoward = false;
             _stateHandler.IsWalkingBackward = false;
             _stateHandler.IsRunning = false;
+            PlayerNoise.OnNoiseChange?.Invoke(0f);
         }
         
     }
