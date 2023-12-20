@@ -9,11 +9,12 @@ public class DialogueManager : MonoBehaviour
     private Queue<string> sentences;
 
     [SerializeField] private TextMeshProUGUI _textComponent;
+    [SerializeField] private TextMeshProUGUI _letterTextComponent;
     private Animator _animator;
 
     private PlayerInput _playerInput;
     private bool _dialogueIsOpen = false;
-
+    private bool _falaDoPlayer;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -43,11 +44,16 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
     }
-    public void StartDialogue(Dialogue dialogue) 
+    public void StartDialogue(Dialogue dialogue, bool falaDoPlayer) 
     {
         sentences.Clear();
         _dialogueIsOpen = true;
-        _animator.SetBool("Open", true);
+        _falaDoPlayer = falaDoPlayer;
+
+        if (falaDoPlayer)
+            _animator.SetBool("Open", true);
+        else
+            PaperAnimControl.OnPaperClicked?.Invoke();
 
         foreach(var st in dialogue.Sentences)
         {
@@ -68,13 +74,17 @@ public class DialogueManager : MonoBehaviour
 
         string st = sentences.Dequeue();
         _textComponent.text = st;
+        _letterTextComponent.text = st;
 
 
     }
     private void EndDialogue()
     {
         _dialogueIsOpen = false;
-        _animator.SetBool("Open", false);
+        if(_falaDoPlayer)
+            _animator.SetBool("Open", false);
+        else
+            PaperAnimControl.OnPaperClicked?.Invoke();
     }
 
 
