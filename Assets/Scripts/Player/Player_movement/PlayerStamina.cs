@@ -16,6 +16,10 @@ public class PlayerStamina : MonoBehaviour
     private float _regenDelay;
     [SerializeField]
     private float _minStaminaToMove;
+    public float MinStaminaToMove
+    {
+        get => _minStaminaToMove;
+    }
     private float _currentStamina;
     private float _regenTimer;
 
