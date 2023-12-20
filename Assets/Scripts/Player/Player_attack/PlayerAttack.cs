@@ -62,6 +62,7 @@ public class PlayerAttack : MonoBehaviour
     void Start()
     {
         _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
+        _ammoUIReference.AmmoUpdate();
     }
 
     // Update is called once per frame
@@ -109,6 +110,11 @@ public class PlayerAttack : MonoBehaviour
         {
             if (_isFiring)
             {
+                if (_currentWeapon.CurrentWeaponAmmo == 0)
+                {
+                    return;
+                }
+                
                 for (int i = 0; i < _currentWeapon.NumberOfProjectiles; i++)
                 {
                     Vector3 shootingDirection = HandleRecoil();
@@ -136,6 +142,7 @@ public class PlayerAttack : MonoBehaviour
                 _stateHandlerReference.IsShooting = true;
 
                 _cameraShakeControllerReference.ShakeCamera(_currentWeapon.ShakeCameraStrengh, 0.1f);
+                _currentWeapon.CurrentWeaponAmmo--;
                 _currentShootCooldown = _currentWeapon.ShootCooldown;
 
                 _ammoUIReference.AmmoUpdate();
@@ -172,6 +179,25 @@ public class PlayerAttack : MonoBehaviour
         {
             _currentAngleRecoil = _currentWeapon.RecoilMaxAngle;
         }
+    }
+
+    public void ReloadWeapon()
+    {
+        if ((_currentWeapon.CurrentWeaponAmmo == _currentWeapon.MaxWeaponAmmoPerClip) || _currentWeapon.MaxWeaponAmmo == 0)
+            return;
+
+        if (_currentWeapon.MaxWeaponAmmo >= _currentWeapon.MaxWeaponAmmoPerClip - _currentWeapon.CurrentWeaponAmmo)
+        {
+
+            _currentWeapon.MaxWeaponAmmo -= _currentWeapon.MaxWeaponAmmoPerClip - _currentWeapon.CurrentWeaponAmmo;
+            _currentWeapon.CurrentWeaponAmmo += _currentWeapon.MaxWeaponAmmoPerClip - _currentWeapon.CurrentWeaponAmmo;
+        }
+        else
+        {
+            _currentWeapon.CurrentWeaponAmmo = _currentWeapon.MaxWeaponAmmo;
+            _currentWeapon.MaxWeaponAmmo = 0;
+        }
+        _ammoUIReference.AmmoUpdate();
     }
 
     #if UNITY_EDITOR

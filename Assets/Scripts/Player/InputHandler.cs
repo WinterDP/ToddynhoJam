@@ -76,6 +76,10 @@ public class InputHandler : MonoBehaviour
         _playerInput.Player.Fire.performed += OnFire;
         _playerInput.Player.Fire.canceled += OnFire;
 
+        //Recarregar
+        _playerInput.Player.Reload.performed += OnReload;
+        _playerInput.Player.Reload.canceled += OnReload;
+
         //Interagir
         _playerInput.Player.Interact.performed += OnInteract;
         _playerInput.Player.Interact.canceled += OnInteract;
@@ -163,6 +167,16 @@ public class InputHandler : MonoBehaviour
         else
         {
             _playerAttackReference.IsFiring = false;
+        }
+    }
+
+    private void OnReload(InputAction.CallbackContext inputValue)
+    {
+        if (inputValue.action.IsPressed())
+        {
+
+            Debug.Log("teste");
+            _playerAttackReference.ReloadWeapon();
         }
     }
 
