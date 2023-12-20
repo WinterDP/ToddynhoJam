@@ -710,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 3910062846735494946, guid: 7e7cbbcd88fb27845888f261a755519f, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7448199859870535882, guid: 7e7cbbcd88fb27845888f261a755519f, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -717,6 +721,10 @@ PrefabInstance:
     - target: {fileID: 7448199859870535882, guid: 7e7cbbcd88fb27845888f261a755519f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7627848785703447173, guid: 7e7cbbcd88fb27845888f261a755519f, type: 3}
+      propertyPath: m_Name
+      value: Stamina
       objectReference: {fileID: 0}
     - target: {fileID: 8904292848071409288, guid: 7e7cbbcd88fb27845888f261a755519f, type: 3}
       propertyPath: m_Pivot.x

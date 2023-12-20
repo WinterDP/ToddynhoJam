@@ -29,31 +29,39 @@ public class LanternHandler : MonoBehaviour
     private List<float> _lowBatteryWarningPoints;
     private bool _warnedLowBatteryLevel;
 
+    private StateHandler _stateHandler;
+
     private void Awake()
     {
         _lanternReference = gameObject.GetComponent<Light2D>();
+        _stateHandler = gameObject.GetComponentInParent<StateHandler>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         // carrega a bateria na carga maxima quando inciado
+
+        TurnOffLantern();
         _batteryCurrentCharge = _batteryMaxCharge;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_isLanternTurnedOn)
+        if (_stateHandler.HasLantern)
         {
-            // Caso o player ligue a lanterna, ativa a lanterna e começa a gastar bateria
-            TurnOnLantern();
-            SpendBattery();
-        }
-        else
-        {
-            // Caso o player desligue a lanterna, desativa a lanterna
-            TurnOffLantern();
+            if (_isLanternTurnedOn)
+            {
+                // Caso o player ligue a lanterna, ativa a lanterna e começa a gastar bateria
+                TurnOnLantern();
+                SpendBattery();
+            }
+            else
+            {
+                // Caso o player desligue a lanterna, desativa a lanterna
+                TurnOffLantern();
+            }
         }
     }
 
@@ -132,6 +140,8 @@ public class LanternHandler : MonoBehaviour
         // Se a lanterna estiver desligada liga a lanterna
         if(_currentLanternRange != _lanternMaxRange)
         {
+
+            _isLanternTurnedOn = true;
             _lanternReference.pointLightOuterRadius = _lanternMaxRange;
             _lanternReference.pointLightInnerRadius = _lanternMaxRange / 2f;
             _currentLanternRange = _lanternMaxRange;
@@ -143,6 +153,7 @@ public class LanternHandler : MonoBehaviour
         // Se a lanterna estiver ligada desliga a lanterna
         if (_currentLanternRange != 0.5)
         {
+            _isLanternTurnedOn = false;
             _lanternReference.pointLightOuterRadius = 0.5f;
             _lanternReference.pointLightInnerRadius = 0.5f / 2f;
             _currentLanternRange = 0.5f;
