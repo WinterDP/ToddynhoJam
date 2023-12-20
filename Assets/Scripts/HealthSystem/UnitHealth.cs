@@ -43,6 +43,7 @@ public class UnitHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         _healthEvents.TakeDamage(amount);
+        GetComponent<StateMachine>()?.ForceStunState();
     }
     public void UnitDied()
     {
