@@ -67,6 +67,7 @@ public class WeaponSO : ScriptableObject
     public int MaxWeaponAmmo
     {
         get => _maxWeaponAmmo;
+        set => _maxWeaponAmmo = value;
     }
 
     [SerializeField]
@@ -82,6 +83,7 @@ public class WeaponSO : ScriptableObject
     public int CurrentWeaponAmmo
     {
         get => _currentWeaponAmmo;
+        set => _currentWeaponAmmo = value;
     }
 
     [SerializeField]

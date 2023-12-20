@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 8185972249557494582}
   - component: {fileID: 1384676103826746148}
   - component: {fileID: 8217558828941720099}
-  - component: {fileID: 2055320718240944405}
+  - component: {fileID: 7815158660027595055}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _staminaSliderFillArea: {fileID: 8580789488423998726}
---- !u!114 &2055320718240944405
+--- !u!114 &7815158660027595055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
