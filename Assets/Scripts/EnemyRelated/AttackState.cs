@@ -36,6 +36,7 @@ public class AttackState : BaseState
 
         baseEnemy.Agent.SetDestination(transform.position);
         await Task.Delay(1000); //anim duration test
+        GameManager.Instance.GetPlayerReference().GetComponent<UnitHealth>().TakeDamage(baseEnemy.Damage);
         playedAttack = true;
         playingAttack = false;
     }

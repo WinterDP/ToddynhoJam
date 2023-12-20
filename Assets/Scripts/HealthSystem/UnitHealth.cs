@@ -46,7 +46,7 @@ public class UnitHealth : MonoBehaviour
     }
     public void UnitDied()
     {
-        Destroy(gameObject); //die anim, trigger, wait for secs, destroy
+        Destroy(gameObject); //die anim, trigger, wait for secs, destroy, async pref
     }
 
 }
