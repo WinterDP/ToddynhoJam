@@ -63,8 +63,30 @@ public class WeaponSO : ScriptableObject
     }
 
     [SerializeField]
-    private float _numberOfProjectiles;
-    public float NumberOfProjectiles
+    private int _maxWeaponAmmo;
+    public int MaxWeaponAmmo
+    {
+        get => _maxWeaponAmmo;
+    }
+
+    [SerializeField]
+    private int _maxWeaponAmmoPerClip;
+    public int MaxWeaponAmmoPerClip
+    {
+        get => _maxWeaponAmmoPerClip;
+    }
+
+
+    [SerializeField]
+    private int _currentWeaponAmmo;
+    public int CurrentWeaponAmmo
+    {
+        get => _currentWeaponAmmo;
+    }
+
+    [SerializeField]
+    private int _numberOfProjectiles;
+    public int NumberOfProjectiles
     {
         get => _numberOfProjectiles;
     }

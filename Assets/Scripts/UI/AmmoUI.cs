@@ -6,27 +6,29 @@ using UnityEngine;
 
 public class AmmoUI : MonoBehaviour
 {
+    [SerializeField]
     private TextMeshProUGUI _textComponent;
+
+    private PlayerAttack _playerAttackReference;
 
     public static Action<int> OnAmmoUpdate;
 
     void Awake()
     {
-        _textComponent = GetComponent<TextMeshProUGUI>();
+
+        _playerAttackReference = gameObject.GetComponent<PlayerAttack>();
     }
 
-    private void OnEnable()
+    public void AmmoUpdate()
     {
-        OnAmmoUpdate += AmmoUpdate;
-    }
-
-    private void OnDisable()
-    {
-        OnAmmoUpdate -= AmmoUpdate;
-    }
-
-    private void AmmoUpdate(int currentAmmoValue)
-    {
-        _textComponent.text = currentAmmoValue + "/12";
+        if (_playerAttackReference.CurrentWeapon != null)
+        {
+            _textComponent.text = _playerAttackReference.CurrentWeapon.CurrentWeaponAmmo + "/" + _playerAttackReference.CurrentWeapon.MaxWeaponAmmo;
+        }
+        else
+        {
+            _textComponent.text = "";
+        }
+        
     }
 }

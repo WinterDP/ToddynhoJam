@@ -7,12 +7,17 @@ public class PlayerAttack : MonoBehaviour
     #region Variáveis: configuração geral
     [SerializeField]
     private WeaponSO _currentWeapon;
+    public WeaponSO CurrentWeapon
+    {
+        get => _currentWeapon;
+    }
     [SerializeField]
     private LayerMask _whatIsEnemy;
     [SerializeField]
     private CameraShakeController _cameraShakeControllerReference;
 
     private StateHandler _stateHandlerReference;
+    private AmmoUI _ammoUIReference;
     #endregion
 
     #region Variáveis: Melee
@@ -49,6 +54,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
+        _ammoUIReference = gameObject.GetComponent<AmmoUI>();
         _stateHandlerReference = gameObject.GetComponent<StateHandler>();
     }
 
@@ -129,9 +135,10 @@ public class PlayerAttack : MonoBehaviour
                 }
                 _stateHandlerReference.IsShooting = true;
 
-                //AmmoUI.OnAmmoUpdate?.Invoke(currentWeaponAmmo);
                 _cameraShakeControllerReference.ShakeCamera(_currentWeapon.ShakeCameraStrengh, 0.1f);
                 _currentShootCooldown = _currentWeapon.ShootCooldown;
+
+                _ammoUIReference.AmmoUpdate();
             }
             else
             {
