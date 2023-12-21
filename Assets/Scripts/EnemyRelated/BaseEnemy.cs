@@ -33,6 +33,14 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] private AudioClip runSound;
     [SerializeField] private AudioClip screamSound;
 
+    [Header("Animation Names")]
+    public string Walk;
+    public string Run;
+    public string Idle;
+    public string Roar;
+    public string Attack;
+
+
     public AudioClip AttackSound => attackSound;
     public AudioClip RunSound => runSound;
     public AudioClip ScreamSound => screamSound;
