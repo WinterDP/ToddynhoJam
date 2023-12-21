@@ -121,4 +121,190 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052afd3c452c7de4b946020e25c48b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - audioSource: {fileID: 0}
+    name: Shoot
+    clip: {fileID: 8300000, guid: 90f5e03697fdf304bbdf7d580d0db320, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: Reload
+    clip: {fileID: 8300000, guid: e8e2b19500564514483beb0df61385d1, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: Crouch
+    clip: {fileID: 8300000, guid: 9955a8782a80bbd4a995fbf897b81391, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: CrouchBack
+    clip: {fileID: 8300000, guid: 1fd870beacd3d894bafb188a508a9dda, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: CrouchForward
+    clip: {fileID: 8300000, guid: 788fb3a7dbf0ff74db1b6a6f1aa5146d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: RunBackwards
+    clip: {fileID: 8300000, guid: 1897314f31b48834d86c996c22269533, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: RunForward
+    clip: {fileID: 8300000, guid: e9447197d40c79647aaa641f3ba127f7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: StepsComum
+    clip: {fileID: 8300000, guid: 8b56de56635c572438b1f94ef8e98018, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: StepsParrudo
+    clip: {fileID: 8300000, guid: 56baa150fb8c16a4f8c3cb33e1431579, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: StepsPequeno
+    clip: {fileID: 8300000, guid: eaf146f5a69149749a67f22478b44d07, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: StepsSensivel
+    clip: {fileID: 8300000, guid: eaf146f5a69149749a67f22478b44d07, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: StepsPequeno
+    clip: {fileID: 8300000, guid: eaf146f5a69149749a67f22478b44d07, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: WalkBack
+    clip: {fileID: 8300000, guid: 212b63b740f10904ea9781142daa8352, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: WalkForward
+    clip: {fileID: 8300000, guid: cef4b8bcc5309c74d8f4b2e831529b18, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: Reload
+    clip: {fileID: 8300000, guid: e8e2b19500564514483beb0df61385d1, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: Paper
+    clip: {fileID: 8300000, guid: 5143fc6a2d983d345ad86b28084988f0, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: FlashlightOn
+    clip: {fileID: 8300000, guid: 208ae44ed08ec354fa9a54ec12370eeb, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: FlashlightOff
+    clip: {fileID: 8300000, guid: c98a2f92ba815f74a8f9ad0cd01ca059, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: FlashlightIssue
+    clip: {fileID: 8300000, guid: ed81d5d65bca388499cd61ec5158d13e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: Fatigue
+    clip: {fileID: 8300000, guid: 2e0ab5a53e7803e42a94ed90ba6345f6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoComum
+    clip: {fileID: 8300000, guid: 8b56de56635c572438b1f94ef8e98018, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoParrudo
+    clip: {fileID: 8300000, guid: 56baa150fb8c16a4f8c3cb33e1431579, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoPequeno
+    clip: {fileID: 8300000, guid: eaf146f5a69149749a67f22478b44d07, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoSensivel
+    clip: {fileID: 8300000, guid: aa1f6e775cb655c46adba3d996957a12, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoComumGrito
+    clip: {fileID: 8300000, guid: 02994d7184cf2624aa3e6c23825cad88, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoPequenoGrito
+    clip: {fileID: 8300000, guid: 92035900ca531014181125c4fdb6aa8e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoSensivelGrito
+    clip: {fileID: 8300000, guid: c6ee1c488b153684d94dc0e40e2c69ce, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoPequenoDano
+    clip: {fileID: 8300000, guid: a39c180117e47764db856b8ac6bb9968, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoSensivelDano
+    clip: {fileID: 8300000, guid: 902cf3d3da60fc645b33de5699ef02b7, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoParrudoDano
+    clip: {fileID: 8300000, guid: c535ed24623ab3a419a3a27e443444d9, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+  - audioSource: {fileID: 0}
+    name: DinoComumDano
+    clip: {fileID: 8300000, guid: aac5f6db661d1fd4d9b4fd83d8a5a933, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
