@@ -136,12 +136,23 @@ public class PlayerMovement : MonoBehaviour
             if (_stateHandler._playerAttackReference.CurrentWeapon != null)
             {
                 if (!_stateHandler.PlayerAnimationsReference.IsPlayingAnimation())
+                {
+                   
                     _stateHandler.PlayerAnimationsReference.PlayRunningComArma();
+                }
+
             }
             else
             {
                 if (!_stateHandler.PlayerAnimationsReference.IsPlayingAnimation())
                     _stateHandler.PlayerAnimationsReference.PlayRunning();
+            }
+
+            if (!AudioManager.instance.IsPlaying("WalkForward") || !AudioManager.instance.IsPlaying("RunForward"))
+            {
+                AudioManager.instance.StopSound("WalkBack");
+                AudioManager.instance.StopSound("WalkForward");
+                AudioManager.instance.PlaySound("RunForward");
             }
 
         }
@@ -165,6 +176,13 @@ public class PlayerMovement : MonoBehaviour
             _stateHandler.IsWalkingFoward = true;
             _stateHandler.IsWalkingBackward = false;
             PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.NormalMovementNoise);
+
+            if (!AudioManager.instance.IsPlaying("WalkForward") || !AudioManager.instance.IsPlaying("RunForward"))
+            {
+                AudioManager.instance.StopSound("WalkBack");
+                AudioManager.instance.PlaySound("WalkForward");
+            }
+
         }
         else
         {
@@ -174,6 +192,14 @@ public class PlayerMovement : MonoBehaviour
             _stateHandler.IsWalkingBackward = true;
             _stateHandler.IsWalkingFoward = false;
             PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.BackwardsMovementNoise);
+
+            if (!AudioManager.instance.IsPlaying("WalkBack"))
+            {
+                AudioManager.instance.StopSound("WalkForward");
+                AudioManager.instance.StopSound("RunForward");
+                AudioManager.instance.PlaySound("WalkBack");
+            }
+
         }
         
 
@@ -195,6 +221,7 @@ public class PlayerMovement : MonoBehaviour
             }
             PlayerNoise.OnNoiseChange?.Invoke(0f);
         }
+
         
     }
 
