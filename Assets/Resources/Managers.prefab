@@ -155,13 +155,13 @@ MonoBehaviour:
   - audioSource: {fileID: 0}
     name: RunBackwards
     clip: {fileID: 8300000, guid: 1897314f31b48834d86c996c22269533, type: 3}
-    volume: 0.5
+    volume: 0.2
     pitch: 1
     loop: 0
   - audioSource: {fileID: 0}
     name: RunForward
     clip: {fileID: 8300000, guid: e9447197d40c79647aaa641f3ba127f7, type: 3}
-    volume: 0.5
+    volume: 0.2
     pitch: 1
     loop: 0
   - audioSource: {fileID: 0}
@@ -197,13 +197,13 @@ MonoBehaviour:
   - audioSource: {fileID: 0}
     name: WalkBack
     clip: {fileID: 8300000, guid: 212b63b740f10904ea9781142daa8352, type: 3}
-    volume: 0.5
+    volume: 0.2
     pitch: 1
     loop: 0
   - audioSource: {fileID: 0}
     name: WalkForward
     clip: {fileID: 8300000, guid: cef4b8bcc5309c74d8f4b2e831529b18, type: 3}
-    volume: 0.5
+    volume: 0.2
     pitch: 1
     loop: 0
   - audioSource: {fileID: 0}

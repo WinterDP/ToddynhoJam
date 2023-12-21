@@ -148,7 +148,7 @@ public class PlayerMovement : MonoBehaviour
                     _stateHandler.PlayerAnimationsReference.PlayRunning();
             }
 
-            if (!AudioManager.instance.IsPlaying("WalkForward") || !AudioManager.instance.IsPlaying("RunForward"))
+            if (!AudioManager.instance.IsPlaying("WalkForward"))
             {
                 AudioManager.instance.StopSound("WalkBack");
                 AudioManager.instance.StopSound("WalkForward");
@@ -177,9 +177,10 @@ public class PlayerMovement : MonoBehaviour
             _stateHandler.IsWalkingBackward = false;
             PlayerNoise.OnNoiseChange?.Invoke(PlayerNoise.Instance.NormalMovementNoise);
 
-            if (!AudioManager.instance.IsPlaying("WalkForward") || !AudioManager.instance.IsPlaying("RunForward"))
+            if (!AudioManager.instance.IsPlaying("WalkForward"))
             {
                 AudioManager.instance.StopSound("WalkBack");
+                AudioManager.instance.StopSound("RunForward");
                 AudioManager.instance.PlaySound("WalkForward");
             }
 
@@ -197,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 AudioManager.instance.StopSound("WalkForward");
                 AudioManager.instance.StopSound("RunForward");
-                AudioManager.instance.PlaySound("WalkBack");
+                //AudioManager.instance.PlaySound("WalkBack");
             }
 
         }
