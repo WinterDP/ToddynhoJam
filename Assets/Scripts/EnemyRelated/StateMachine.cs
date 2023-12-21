@@ -53,4 +53,12 @@ public class StateMachine : MonoBehaviour
         OnStateChanged?.Invoke(currentState);
     }
 
+    public void ForceStunState()
+    {
+        currentState = avaibleStates[typeof(StunState)];
+        currentState.EnterState();
+        OnStateChanged?.Invoke(currentState);
+    }
+
+
 }

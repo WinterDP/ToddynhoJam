@@ -14,7 +14,8 @@ public class Parrudo : BaseEnemy
             { typeof(IdleState), new IdleState(this) },
             { typeof(AttackState), new AttackState(this) },
             { typeof(CallNearbyAlliesState), new CallNearbyAlliesState(this) },
-            { typeof(ChaseState), new ChaseState(this) }
+            { typeof(ChaseState), new ChaseState(this) },
+            { typeof(StunState), new StunState(this) }
 
         };
 
