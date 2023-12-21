@@ -54,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private LayerMask _IgnoreLayers;
 
-    private float _currentAngleRecoil;
+    public float _currentAngleRecoil;
     #endregion
 
     private void Awake()
@@ -66,7 +66,8 @@ public class PlayerAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
+        if (_currentWeapon != null)
+            _currentAngleRecoil = _currentWeapon.RecoilMinAngle;
         _ammoUIReference.AmmoUpdate();
     }
 
@@ -78,12 +79,16 @@ public class PlayerAttack : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MeleeAttack();
-        Shoot();
+        if (_currentWeapon != null)
+        {
+            MeleeAttack();
+            Shoot();
+        }
     }
 
     public void MeleeAttack()
     {
+        
         if (_currentMeleeCooldown > 0)
         {
             _currentMeleeCooldown -= Time.deltaTime;
@@ -100,6 +105,7 @@ public class PlayerAttack : MonoBehaviour
                     Debug.Log("atingiu " + enemy.gameObject.name);
                 }
 
+                _stateHandlerReference.PlayerAnimationsReference.PlayAttack();
                 _isMeleeAttacking = false;
                 _currentMeleeCooldown = _currentWeapon.MeleeAttackCooldown;
             }
@@ -153,6 +159,7 @@ public class PlayerAttack : MonoBehaviour
                 _currentWeapon.CurrentWeaponAmmo--;
                 _currentShootCooldown = _currentWeapon.ShootCooldown;
 
+                _stateHandlerReference.PlayerAnimationsReference.Shoot();
                 _ammoUIReference.AmmoUpdate();
             }
             else
@@ -170,30 +177,40 @@ public class PlayerAttack : MonoBehaviour
     public Vector3 HandleRecoil()
     {
 
-        CalculateRecoil();
+        if (_currentWeapon != null)
+        {
+            CalculateRecoil();
 
-        float AngleRecoil = Random.Range(_currentAngleRecoil, -_currentAngleRecoil);
+            float AngleRecoil = Random.Range(_currentAngleRecoil, -_currentAngleRecoil);
 
-        return Quaternion.AngleAxis(AngleRecoil, Vector3.forward) * transform.right;
+            return Quaternion.AngleAxis(AngleRecoil, Vector3.forward) * transform.right;
+        }
+
+        return Quaternion.AngleAxis(0, Vector3.forward) * transform.right;
     }
 
     public void CalculateRecoil()
     {
-        if (_currentAngleRecoil < _currentWeapon.RecoilMaxAngle)
-        {
-            _currentAngleRecoil += _currentWeapon.RecoilIncrease * Time.deltaTime;
-        }
-        else
-        {
-            _currentAngleRecoil = _currentWeapon.RecoilMaxAngle;
+        if (_currentWeapon != null) 
+        { 
+            if (_currentAngleRecoil < _currentWeapon.RecoilMaxAngle)
+            {
+                _currentAngleRecoil += _currentWeapon.RecoilIncrease * Time.deltaTime;
+            }
+            else
+            {
+                _currentAngleRecoil = _currentWeapon.RecoilMaxAngle;
+            }
         }
     }
 
     public void ReloadWeapon()
     {
-        if ((_currentWeapon.CurrentWeaponAmmo == _currentWeapon.MaxWeaponAmmoPerClip) || _currentWeapon.MaxWeaponAmmo == 0)
+        if (_currentWeapon == null)
             return;
 
+        if ((_currentWeapon.CurrentWeaponAmmo == _currentWeapon.MaxWeaponAmmoPerClip) || _currentWeapon.MaxWeaponAmmo == 0)
+        return;
         if (_currentWeapon.MaxWeaponAmmo >= _currentWeapon.MaxWeaponAmmoPerClip - _currentWeapon.CurrentWeaponAmmo)
         {
 
@@ -205,6 +222,7 @@ public class PlayerAttack : MonoBehaviour
             _currentWeapon.CurrentWeaponAmmo = _currentWeapon.MaxWeaponAmmo;
             _currentWeapon.MaxWeaponAmmo = 0;
         }
+        _stateHandlerReference.PlayerAnimationsReference.Reload();
         _ammoUIReference.AmmoUpdate();
     }
 

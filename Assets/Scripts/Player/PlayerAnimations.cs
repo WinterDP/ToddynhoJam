@@ -110,4 +110,46 @@ public class PlayerAnimations : MonoBehaviour
         _animatorLegs.Play("PeIdle");
     }
 
+    public bool IsNotPlayingAnimation(string animationName)
+    {
+        bool returnValue = true;
+        foreach (var animation in _animator.GetCurrentAnimatorClipInfo(0))
+        {
+            if (animationName == animation.clip.name)
+            {
+                returnValue = false;
+            }
+        }
+
+        return returnValue;
+    }
+
+    public bool IsPlayingAnimation()
+    {
+        bool returnValue = false;
+        foreach (var animation in _animator.GetCurrentAnimatorClipInfo(0))
+        {
+            switch (animation.clip.name)
+            {
+                case "Reload":
+                    returnValue = true;
+                    break;
+                case "Shoot":
+                    returnValue = true;
+                    break;
+                case "Interact":
+                    returnValue = true;
+                    break;
+                case "Attack":
+                    returnValue = true;
+                    break;
+                default:
+                    returnValue = false;
+                    break;
+            }
+        }
+
+        return returnValue;
+    }
+
 }

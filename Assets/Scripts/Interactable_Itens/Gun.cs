@@ -11,6 +11,7 @@ public class Gun : InteractableItem
         PlayerAttack playerAttackReference = collision.gameObject.GetComponentInChildren<PlayerAttack>();
         playerAttackReference.CurrentWeapon = _weapon;
         playerAttackReference.AmmoUIReference.AmmoUpdate();
+        playerAttackReference._currentAngleRecoil = _weapon.RecoilMinAngle;
         ItemInteracted();
     }
 

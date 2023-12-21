@@ -45,12 +45,15 @@ public abstract class InteractableItem : MonoBehaviour
         if (inputHandlerReference != null && stateHandlerReference != null && inputHandlerReference.IsInteracting)
         {
             // Verifica-se o item precisa de tempo para que a interação seja realizada
+            if (stateHandlerReference.IsInteracting == false)
+                stateHandlerReference.PlayerAnimationsReference.PlayInteract();
             stateHandlerReference.IsInteracting = true;
             if (_needTimeToInteract)
             {
                 if (_currentLanternState)
                     _lanterHandlerReference.TurnOffLantern();
 
+                
                 if (_currentTimeInteracting >= 0)
                 {
                     _currentTimeInteracting -= Time.deltaTime;
@@ -78,12 +81,38 @@ public abstract class InteractableItem : MonoBehaviour
                     _currentTimeInteracting = _timeToInteract;
                     stateHandlerReference.IsInteracting = false;
                     inputHandlerReference.IsInteracting = false;
+                    if (stateHandlerReference._playerAttackReference.CurrentWeapon != null)
+                    {
+                        if (!stateHandlerReference.PlayerAnimationsReference.IsPlayingAnimation())
+                            stateHandlerReference.PlayerAnimationsReference.PlayIdleArmado();
+                    }
+                    else
+                    {
+                        if (!stateHandlerReference.PlayerAnimationsReference.IsPlayingAnimation())
+                            stateHandlerReference.PlayerAnimationsReference.PlayDesarmado();
+                    }
                     feedbackInteractableItemReference.UpdateInteractableBar(_currentTimeInteracting, _timeToInteract);
                 }
 
             }
             else
             {
+                if (_currentLanternState && stateHandlerReference.HasLantern)
+                    _lanterHandlerReference.TurnOnLantern();
+                InteractWithItem(collision);
+                _currentTimeInteracting = _timeToInteract;
+                stateHandlerReference.IsInteracting = false;
+                inputHandlerReference.IsInteracting = false;
+                if (stateHandlerReference._playerAttackReference.CurrentWeapon != null)
+                {
+                    if (!stateHandlerReference.PlayerAnimationsReference.IsPlayingAnimation())
+                        stateHandlerReference.PlayerAnimationsReference.PlayIdleArmado();
+                }
+                else
+                {
+                    if (!stateHandlerReference.PlayerAnimationsReference.IsPlayingAnimation())
+                        stateHandlerReference.PlayerAnimationsReference.PlayDesarmado();
+                }
                 // caso não seja necessário tempo de interação o player interage de imediato
                 InteractWithItem(collision);
                 stateHandlerReference.IsInteracting = false;
