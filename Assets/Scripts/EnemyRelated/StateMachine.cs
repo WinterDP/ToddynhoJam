@@ -13,6 +13,8 @@ public class StateMachine : MonoBehaviour
 
     public event Action<BaseState> OnStateChanged;
 
+    public Animator Animator => GetComponentInChildren<Animator>();
+
     public void SetStates(Dictionary<Type, BaseState> states)
     {
         avaibleStates = states;
@@ -58,6 +60,45 @@ public class StateMachine : MonoBehaviour
         currentState = avaibleStates[typeof(StunState)];
         currentState.EnterState();
         OnStateChanged?.Invoke(currentState);
+    }
+
+    public void ChangeAnimationClip(string name)
+    {
+        foreach (var animation in Animator.GetCurrentAnimatorClipInfo(0))
+        {
+            if (animation.clip.name == name && !IsPlayingAnimation())
+            {
+                Animator.Play(name);
+            }
+        }
+    }
+
+    public bool IsPlayingAnimation()
+    {
+        bool returnValue = false;
+        foreach (var animation in Animator.GetCurrentAnimatorClipInfo(0))
+        {
+            switch (animation.clip.name)
+            {
+                case "IdleDinoNormal":
+                    returnValue = true;
+                    break;
+                case "attackDinoNormal":
+                    returnValue = true;
+                    break;
+                case "runDinoNormal":
+                    returnValue = true;
+                    break;
+                case "walkDinoNormal":
+                    returnValue = true;
+                    break;
+                default:
+                    returnValue = false;
+                    break;
+            }
+        }
+
+        return returnValue;
     }
 
 

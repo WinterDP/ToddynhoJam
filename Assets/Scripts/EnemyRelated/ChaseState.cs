@@ -45,6 +45,6 @@ public class ChaseState : BaseState
 
     public override void EnterState()
     {
-        
+        baseEnemy.StateMachine.ChangeAnimationClip(baseEnemy.Run);
     }
 }

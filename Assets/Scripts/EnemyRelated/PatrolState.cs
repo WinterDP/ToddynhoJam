@@ -22,6 +22,7 @@ public class PatrolState : BaseState
         if (!baseEnemy.AudioSource.isPlaying)
             baseEnemy.AudioSource.PlayOneShot(baseEnemy.RunSound);
 
+
         if (comingFromOtherState)
         {
             comingFromOtherState = false;
@@ -68,6 +69,6 @@ public class PatrolState : BaseState
 
     public override void EnterState()
     {
-    
+        baseEnemy.StateMachine.ChangeAnimationClip(baseEnemy.Walk);
     }
 }
