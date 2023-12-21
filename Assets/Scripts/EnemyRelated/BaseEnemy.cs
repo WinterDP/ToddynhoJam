@@ -25,6 +25,17 @@ public abstract class BaseEnemy : MonoBehaviour
     [SerializeField] private float rangeX;
     [SerializeField] private float rangeY;
     private Vector3 startPosition;
+
+    [Header("Audioss")]
+    private AudioSource audioSource;
+    public AudioSource AudioSource => audioSource;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip runSound;
+    [SerializeField] private AudioClip screamSound;
+
+    public AudioClip AttackSound => attackSound;
+    public AudioClip RunSound => runSound;
+    public AudioClip ScreamSound => screamSound;
     public float RangeX => rangeX;
     public float RangeY => rangeY;
     public Vector3 StartPosition => startPosition;
@@ -32,6 +43,7 @@ public abstract class BaseEnemy : MonoBehaviour
     {
         startPosition = transform.position;
         StateMachine.SetStates(states);
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SetTarget(Transform target)

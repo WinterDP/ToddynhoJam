@@ -15,6 +15,9 @@ public class ChaseState : BaseState
 
         float distance = CalculateDistanceFromTarget();
 
+        if(!baseEnemy.AudioSource.isPlaying)
+            baseEnemy.AudioSource.PlayOneShot(baseEnemy.RunSound);
+
         if (distance > baseEnemy.LoseAgroRadius)
         {
             return typeof(PatrolState);

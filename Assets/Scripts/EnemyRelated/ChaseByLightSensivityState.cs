@@ -14,6 +14,9 @@ public class ChaseByLightSensivityState : BaseState
 
         float distance = CalculateDistanceFromTarget();
 
+        if (!baseEnemy.AudioSource.isPlaying)
+            baseEnemy.AudioSource.PlayOneShot(baseEnemy.ScreamSound);
+
         if (distance > baseEnemy.LoseAgroRadius)
         {
             return typeof(PatrolState);

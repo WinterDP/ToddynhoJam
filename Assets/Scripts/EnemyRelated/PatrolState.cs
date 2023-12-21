@@ -19,7 +19,10 @@ public class PatrolState : BaseState
     }
     public override Type Tick()
     {
-        if(comingFromOtherState)
+        if (!baseEnemy.AudioSource.isPlaying)
+            baseEnemy.AudioSource.PlayOneShot(baseEnemy.RunSound);
+
+        if (comingFromOtherState)
         {
             comingFromOtherState = false;
             currentPatrolTargetPosition = baseEnemy.StartPosition;
