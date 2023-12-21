@@ -98,6 +98,11 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 902cf3d3da60fc645b33de5699ef02b7, type: 3}
   runSound: {fileID: 8300000, guid: aa1f6e775cb655c46adba3d996957a12, type: 3}
   screamSound: {fileID: 8300000, guid: c6ee1c488b153684d94dc0e40e2c69ce, type: 3}
+  Walk: WalkDinoNanico
+  Run: runDinoNanico
+  Idle: IdleDinoNanico
+  Roar: roarDinoNanico
+  Attack: AttackDinoNanico
 --- !u!114 &8096355811177751797
 MonoBehaviour:
   m_ObjectHideFlags: 0
