@@ -34,6 +34,7 @@ public class AttackState : BaseState
             return;
         playingAttack = true;
 
+        baseEnemy.AudioSource.PlayOneShot(baseEnemy.AttackSound);
         baseEnemy.Agent.SetDestination(transform.position);
         await Task.Delay(1000); //anim duration test
         GameManager.Instance.GetPlayerReference().GetComponent<UnitHealth>().TakeDamage(baseEnemy.Damage);

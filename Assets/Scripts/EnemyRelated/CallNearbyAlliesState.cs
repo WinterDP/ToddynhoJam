@@ -50,6 +50,7 @@ public class CallNearbyAlliesState : BaseState
         if (!callingAlliesTask.IsCompleted)
             return typeof(CallNearbyAlliesState);
 
+        baseEnemy.AudioSource.PlayOneShot(baseEnemy.ScreamSound);
         return typeof(ChaseState);
     }
 
