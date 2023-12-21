@@ -34,6 +34,7 @@ public class StunState : BaseState
     private async Task StartStun()
     {
         baseEnemy.Agent.SetDestination(transform.position);
+        baseEnemy.StateMachine.ChangeAnimationClip("idleDinoNormal");
         await Task.Delay(baseEnemy.StunTimeInMilliseconds);
 
        

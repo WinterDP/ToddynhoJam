@@ -15,7 +15,7 @@ public class IdleState : BaseState
 
     public override void EnterState()
     {
-        
+        baseEnemy.StateMachine.ChangeAnimationClip(baseEnemy.Idle);
     }
 
     public override Type Tick()
