@@ -118,9 +118,15 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
+<<<<<<< Updated upstream
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.0910201
+=======
+  m_Offset: {x: -0.0018419094, y: 0.15729351}
+  serializedVersion: 2
+  m_Radius: 1.5362713
+>>>>>>> Stashed changes
 --- !u!114 &2619737423951174613
 MonoBehaviour:
   m_ObjectHideFlags: 0
