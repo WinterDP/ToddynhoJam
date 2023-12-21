@@ -26,7 +26,9 @@ public class IdleState : BaseState
             return typeof(ChaseState);
         else if(distance < baseEnemy.DetectionRadius)
         {
-            if(!calledAllies && !baseEnemy.StateMachine.AvaibleStates.ContainsKey(typeof(CallNearbyAlliesState)))
+            if(!baseEnemy.AudioSource.isPlaying)
+                baseEnemy.AudioSource.PlayOneShot(baseEnemy.ScreamSound);
+            if (!calledAllies && !baseEnemy.StateMachine.AvaibleStates.ContainsKey(typeof(CallNearbyAlliesState)))
             {
                 calledAllies = true;
                 return typeof(IdleState);
