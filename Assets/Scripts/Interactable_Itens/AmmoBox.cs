@@ -9,6 +9,9 @@ public class AmmoBox : InteractableItem
     public override void InteractWithItem(Collider2D collision)
     {
         PlayerAttack playerAttackReference = collision.gameObject.GetComponentInChildren<PlayerAttack>();
+        if (playerAttackReference.CurrentWeapon == null)
+            return;
+        
         playerAttackReference.CurrentWeapon.MaxWeaponAmmo += _ammoAmount;
         playerAttackReference.AmmoUIReference.AmmoUpdate();
         ItemInteracted();

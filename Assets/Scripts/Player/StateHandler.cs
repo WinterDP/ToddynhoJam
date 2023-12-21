@@ -34,7 +34,8 @@ public class StateHandler : MonoBehaviour
     #endregion
 
     #region Ataque Disparo
-    private PlayerAttack _playerAttackReference;
+
+    public PlayerAttack _playerAttackReference;
 
     private bool _isShooting;
     public bool IsShooting
@@ -91,6 +92,16 @@ public class StateHandler : MonoBehaviour
         set => _hasCardGray = value;
     }
     #endregion
+
+    #region Animação
+
+    public PlayerAnimations PlayerAnimationsReference;
+    #endregion
+
+    private void Awake()
+    {
+        PlayerAnimationsReference = gameObject.GetComponentInChildren<PlayerAnimations>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -100,7 +111,11 @@ public class StateHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RunningRecoil();
+        RunningRecoil(); 
+        if (_isInteracting && PlayerAnimationsReference.IsNotPlayingAnimation("Interact"))
+        {
+            PlayerAnimationsReference.PlayInteract();
+        }
     }
 
     public void RunningRecoil()

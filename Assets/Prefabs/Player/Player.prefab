@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 3050208482628005669}
   - component: {fileID: 2516386804235147167}
   - component: {fileID: 1442029158409781043}
+  - component: {fileID: 1844485309914691493}
   m_Layer: 7
   m_Name: GFX
   m_TagString: Untagged
@@ -336,6 +337,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1844485309914691493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3568539052351423711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 888c3c0bb9498b54490a3a71ef236f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4079600915332727525
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,6 +729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84aade178c0487f4e905d1109ec9e3d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerAttackReference: {fileID: 0}
+  PlayerAnimationsReference: {fileID: 0}
 --- !u!114 &5235134265237723666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee1d8bd5e216b445bdee47dd03da616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentWeapon: {fileID: 11400000, guid: 310b00e9eb1c2c6488c1ecafe17138d1, type: 2}
+  _currentWeapon: {fileID: 0}
   _whatIsEnemy:
     serializedVersion: 2
     m_Bits: 8
@@ -751,6 +766,7 @@ MonoBehaviour:
   _IgnoreLayers:
     serializedVersion: 2
     m_Bits: 1472
+  _currentAngleRecoil: 0
 --- !u!114 &1384676103826746148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -921,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cede106fcbce1904ca99ccf224934b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _batteryMaxCharge: 100
+  _batteryMaxCharge: 25
   _batteryDecay: 1
   _lanternMaxRange: 8
   _lowBatteryWarningPoints:

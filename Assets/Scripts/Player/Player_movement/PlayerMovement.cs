@@ -131,9 +131,22 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (_currentSpeedRunModifier != 1f && _currentSpeedRunModifier != 0f)
+        {
             _stateHandler.IsRunning = true;
+            if (_stateHandler._playerAttackReference.CurrentWeapon != null)
+            {
+                if (!_stateHandler.PlayerAnimationsReference.IsPlayingAnimation())
+                    _stateHandler.PlayerAnimationsReference.PlayRunningComArma();
+            }
+            else
+            {
+                if (!_stateHandler.PlayerAnimationsReference.IsPlayingAnimation())
+                    _stateHandler.PlayerAnimationsReference.PlayRunning();
+            }
 
-        
+        }
+
+
         float _playerCurrentSpeed = _playerSpeed * _currentSpeedCrouchModifier * _currentSpeedRunModifier;
 
         // Faz uma transição suave em um dado tempo para a variação do valor do input
@@ -170,6 +183,16 @@ public class PlayerMovement : MonoBehaviour
             _stateHandler.IsWalkingFoward = false;
             _stateHandler.IsWalkingBackward = false;
             _stateHandler.IsRunning = false;
+            if (_stateHandler._playerAttackReference.CurrentWeapon != null)
+            {
+                if(!_stateHandler.PlayerAnimationsReference.IsPlayingAnimation())
+                    _stateHandler.PlayerAnimationsReference.PlayIdleArmado();
+            }
+            else
+            {
+                if (!_stateHandler.PlayerAnimationsReference.IsPlayingAnimation())
+                    _stateHandler.PlayerAnimationsReference.PlayDesarmado();
+            }
             PlayerNoise.OnNoiseChange?.Invoke(0f);
         }
         
