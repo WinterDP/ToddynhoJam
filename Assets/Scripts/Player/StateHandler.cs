@@ -46,7 +46,7 @@ public class StateHandler : MonoBehaviour
     #endregion
 
     #region lanterna
-    private bool _hasLantern = false;
+    public bool _hasLantern = false;
     public bool HasLantern
     {
         get => _hasLantern;

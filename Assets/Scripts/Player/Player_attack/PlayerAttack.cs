@@ -226,11 +226,6 @@ public class PlayerAttack : MonoBehaviour
         _ammoUIReference.AmmoUpdate();
     }
 
-    #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_attackPosition.position, _currentWeapon.MeleeAtackRange);
-    }
-    #endif
+   
+    
 }
